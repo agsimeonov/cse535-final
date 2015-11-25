@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-Advanced Faceted Twitter Search Engine
-=================================================
-
-[1] Multi-Lingual Indexing
-
-[2] Spam-Filtering
-
-[3] Ranking
-
-[4] Faceted Search 
-
-[5] Responsive UI
-
-....Add More Later....	
-=======
 # <p align="center">CSE 435/535 Information Retrieval<br/>Fall 2015<br/>Project Part C: Multilingual Search System</p>
 ###### <p align="center">Due Date: 23:59, Dec 11th, 2015</p>
 
@@ -87,4 +71,3 @@ Grading for this project will be based on (i) sophistication of techniques imple
 ## Presentation
 <p align="justify">We will select projects for in-class presentation on Dec 8th.  More on this forthcoming.</p>
 
->>>>>>> 330504bb3501d092e313f653567ad90b8d97a84c

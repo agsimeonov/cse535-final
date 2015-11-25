@@ -27,7 +27,7 @@ queries = [ x['name'].encode('utf8') for x in trends['trends']]
 
 mlist = []
 for query in queries:
-    searched_tweets = [status._json for status in tweepy.Cursor(api.search, q=query,since="2015-11-24",until="2015-11-25",lang=lang).items(MAX_TWEETS)]
+    searched_tweets = [status._json for status in tweepy.Cursor(api.search, q=query,lang=lang).items(MAX_TWEETS)]
     """
     for i in searched_tweets:
         a = {}

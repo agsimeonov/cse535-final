@@ -1,5 +1,10 @@
 # <p align="center">CSE 435/535 Information Retrieval<br/>Fall 2015<br/>Project Part C: Multilingual Search System</p>
 ###### <p align="center">Due Date: 23:59, Dec 11th, 2015</p>
+###### <p align="center">Demo Proposal: Dec 4 , Demo Day: Dec 8 (Subject to Acceptance - Bonus :))</p>
+
+## Our Search System (Projected Design)
+![Search_UI_Part_1] (https://cloud.githubusercontent.com/assets/11690982/11394811/63e58d9c-9335-11e5-847c-4d5ef01fafb9.PNG)
+![Search_UI_Part_2] (https://cloud.githubusercontent.com/assets/11690982/11394825/750533c0-9335-11e5-975d-607701e41a69.PNG)
 
 ## Overview
 <p align="justify">The goal of this project is to build a multilingual faceted search system, including a front end that allows users to search and browse multilingual data based on various criteria:  topic, location, person, etc.</p>

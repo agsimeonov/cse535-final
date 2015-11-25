@@ -1,0 +1,69 @@
+-----------------------------------------------------------   DEADLINES    -----------------------------------------------------------------
+1. Dec 4, Friday
+If want to be considered for Bonus Points make sure we finish up before this date.
+Teams that want to be considered for in-class presentation ( up to 6 teams will be selected), need to submit some preliminary materials.
+
+2. Dec 8, Tuesday
+Presentation for Bonus Points.
+
+3. Dec 11, Friday
+- the video and URL (project demo site) are due by midnight on Dec 11, 2015  (last day of class)
+
+4. Dec 22, Tuesday
+- Extra time (after exams) to submit the project report and code:  due on Dec 22
+
+
+------------------------------------------------------   WORK DISTRIBUTION    -----------------------------------------------------------------
+
+Work for Common :-
+1. Refer the Search UI to get an idea on our final Search System
+
+2. Collect tweets using date range feature so that we can have tweets with a span of 4 months. This will be useful in Line chart (See Search UI).
+(Refer : http://stackoverflow.com/questions/21865413/get-data-from-twitter-using-tweepy-and-store-in-csv-file)
+
+2. Topics : Paris attacks, ISIS, Syria Refugge Crisis, Russia attacks on Syria, Putin on ISIS, etc
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Riaz
+-> Fetch German Language tweets (~2500) and write Schema for same
+-> Implement Frontend for Search System
+
+-> View (see if helps : https://github.com/diasks2/ruby-nlp)
+1. HTMS/CSS/JavaScript for our Search Page
+2. JavaScript/Jquery library for showing graphs
+3. IFrame for showing "Graphical component nodes graphs"
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Alex
+-> Fetch Russian Language tweets (~2500) and write Schema for same
+-> Implement "Graphical Component" and "Cross Document Analysis Component"
+-> For Graphical Component : Implement Index time user relationship graph (see : http://sigmajs.org/)
+-> For Cross Document Analysis Component : Implement query time graphs - Line Chart and Pie Chart (see : http://www.highcharts.com/demo/)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Raman and Karan
+-> Fetch French and Arabic Language tweets (~2500 each) and write Schema for same
+-> Implement backend for Search System using "Ruby on Rails" and "Sunspot"
+
+-> Model
+1. database Schema design
+2. Tables relationship
+3. Search function :- which define the fields to index and boost on the field
+
+->Controller (see if helps : https://github.com/diasks2/ruby-nlp)
+1. Implementing API's for interaction with WebView
+2. Implementating Pagination
+3. Implementing Faceting
+4. Functionality of updating filter count and metadata
+5. AutoSuggest
+6. Spellcheck
+7. Query Translation using Bing API (Google API is paid now)
+8. Implement Document Clustering using Carrot (see : http://project.carrot2.org/)
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Akash
+-> Fetch English Language tweets (~2500) and write Schema for same
+-> Implement "Intelligent Ranking Component"
+-> Any other functionality/tweak on solr which will give us an edge over others

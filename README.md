@@ -8,8 +8,8 @@
 
 ###### <p align="center">Each Search Result will look like this</p>
 ![Search_UI_Part_3] (https://cloud.githubusercontent.com/assets/11690982/11411178/b2fa2698-939b-11e5-96cc-6dbdf8e16599.png) 
-#### 1. where Title in big Font and Blue color will be an excerpt from retreived text only
-#### 2. Since we are adding a feature of boosting docs based on user clicks. So showing score will help to understand how the document score is changing.
+<p align="justify">1. where Title in big Font and Blue color will be an excerpt from retreived text only.</p>
+<p align="justify">2. Since we are adding a feature of boosting docs based on user clicks. So showing score will help to understand how the document score is changing.</p>
 
 ## Overview
 <p align="justify">The goal of this project is to build a multilingual faceted search system, including a front end that allows users to search and browse multilingual data based on various criteria:  topic, location, person, etc.</p>

@@ -15,28 +15,29 @@ Presentation for Bonus Points.
 
 ------------------------------------------------------   WORK DISTRIBUTION    -----------------------------------------------------------------
 
-Work for Common :-
-1. Refer the Search UI to get an idea on our final Search System
+General :-
+1. Refer the Readme.md "Search UI Projected Design" to get an idea on our final Search System
 
 2. Collect tweets using date range feature so that we can have tweets with a span of 4 months. This will be useful in Line chart (See Search UI).
 (Refer : http://stackoverflow.com/questions/21865413/get-data-from-twitter-using-tweepy-and-store-in-csv-file)
 
-2. Topics : Paris attacks, ISIS, Syria Refugge Crisis, Russia attacks on Syria, Putin on ISIS, etc
+2. Topics : Trending Topics, Paris attacks, ISIS, Syria Refugge Crisis, Russia attacks on Syria, Putin on ISIS, etc
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Riaz
--> Fetch German Language tweets (~2500) and write Schema for same
--> Implement Frontend for Search System
+-> Write Schema for German Language
+-> Implement Frontend for Search System (Refer Readme.md for UI)
+(see if helps : https://github.com/diasks2/ruby-nlp)
 
--> View (see if helps : https://github.com/diasks2/ruby-nlp)
-1. HTMS/CSS/JavaScript for our Search Page
+-> Module : View
+1. AngularJs/HTMS/CSS/JavaScript for our Search Page
 2. JavaScript/Jquery library for showing graphs
 3. IFrame for showing "Graphical component nodes graphs"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Alex
--> Fetch Russian Language tweets (~2500) and write Schema for same
+-> Write Schema for Russian Language
 -> Implement "Graphical Component" and "Cross Document Analysis Component"
 -> For Graphical Component : Implement Index time user relationship graph (see : http://sigmajs.org/)
 -> For Cross Document Analysis Component : Implement query time graphs - Line Chart and Pie Chart (see : http://www.highcharts.com/demo/)
@@ -44,15 +45,16 @@ Alex
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Raman and Karan
--> Fetch French and Arabic Language tweets (~2500 each) and write Schema for same
+-> Write Schema for French and Arabic Language
 -> Implement backend for Search System using "Ruby on Rails" and "Sunspot"
+(see if helps : https://github.com/diasks2/ruby-nlp)
 
--> Model
+-> Module : Model
 1. database Schema design
 2. Tables relationship
 3. Search function :- which define the fields to index and boost on the field
 
-->Controller (see if helps : https://github.com/diasks2/ruby-nlp)
+-> Module : Controller
 1. Implementing API's for interaction with WebView
 2. Implementating Pagination
 3. Implementing Faceting
@@ -64,6 +66,10 @@ Raman and Karan
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Akash
--> Fetch English Language tweets (~2500) and write Schema for same
+-> Fetch ~12000 raw tweets in total in a span of 5 days.
+   1. ~3000 tweets each day for Five different languages (English, French, Russian, German, Arabic).
+   2. ~600 tweets for each language/day
+   
+-> Write Schema for English Language
 -> Implement "Intelligent Ranking Component"
 -> Any other functionality/tweak on solr which will give us an edge over others

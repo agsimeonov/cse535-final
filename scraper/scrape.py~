@@ -4,7 +4,7 @@ import datetime
 from tweepy import OAuthHandler
 
 #declaring constants
-MAX_TWEETS = 50 #tweets per day per language(as in langs)
+MAX_TWEETS = 1 #tweets per day per language(as in langs)
 
 
 #reading settings from file
@@ -27,7 +27,7 @@ queries = [ x['name'].encode('utf8') for x in trends['trends']]
 
 mlist = []
 for query in queries:
-    searched_tweets = [status._json for status in tweepy.Cursor(api.search, q=query,lang=lang).items(MAX_TWEETS)]
+    searched_tweets = [status for status in tweepy.Cursor(api.search, q=query,lang=lang).items(MAX_TWEETS)]
     """
     for i in searched_tweets:
         a = {}
@@ -53,4 +53,3 @@ for query in queries:
     """
 with io.open(time.strftime("%d_%m_%Y") + '.json','w',encoding='utf-8')  as output:
     output.write(unicode(json.dumps(searched_tweets, ensure_ascii=False, encoding='utf8')))
-

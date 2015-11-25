@@ -6,6 +6,11 @@
 ![Search_UI_Part_1] (https://cloud.githubusercontent.com/assets/11690982/11394811/63e58d9c-9335-11e5-847c-4d5ef01fafb9.PNG)
 ![Search_UI_Part_2] (https://cloud.githubusercontent.com/assets/11690982/11394825/750533c0-9335-11e5-975d-607701e41a69.PNG)
 
+###### <p align="center">Each Search Result will look like this</p>
+![Search_UI_Part_3] (https://cloud.githubusercontent.com/assets/11690982/11411178/b2fa2698-939b-11e5-96cc-6dbdf8e16599.png) 
+#### 1. where Title in big Font and Blue color will be an excerpt from retreived text only
+#### 2. Since we are adding a feature of boosting docs based on user clicks. So showing score will help to understand how the document score is changing.
+
 ## Overview
 <p align="justify">The goal of this project is to build a multilingual faceted search system, including a front end that allows users to search and browse multilingual data based on various criteria:  topic, location, person, etc.</p>
 

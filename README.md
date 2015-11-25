@@ -1,6 +1,6 @@
 # <p align="center">CSE 435/535 Information Retrieval<br/>Fall 2015<br/>Project Part C: Multilingual Search System</p>
 ###### <p align="center">Due Date: 23:59, Dec 11th, 2015</p>
-###### <p align="center">Propsed Demo: Dec 4 , Demo Day: Dec 8 (Subject to Shortlist) Bonus :)</p>
+###### <p align="center">Demo Proposal: Dec 4 , Demo Day: Dec 8 (Subject to Acceptance) Bonus :)</p>
 
 ## Overview
 <p align="justify">The goal of this project is to build a multilingual faceted search system, including a front end that allows users to search and browse multilingual data based on various criteria:  topic, location, person, etc.</p>

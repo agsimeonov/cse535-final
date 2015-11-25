@@ -23,8 +23,7 @@ The following sections describe the various tasks involved, evaluation criteria 
 <p align="justify">In this project, you will be required to build a user interface in order to do one of the following (i) accept queries from a user, (ii) display search results, (iii) display analytics based on indexed data.  The user interface will depend on which of the project components (see below) you have implemented.  In summary, you will need to create a working site where users can try out your system.</p>
 
 ## Project Components
-Your project must reflect at least two of the components listed below.  The demonstration of your project<br/>
-should clearly showcase the components/features you have implemented.<br/>
+<p align="justify">Your project must reflect at least two of the components listed below.  The demonstration of your project should clearly showcase the components/features you have implemented.</p>
 
 ### (i)  Content Tagging (Monolingual)
 <p align="justify">Everyone is encouraged to attempt some level of content tagging of the data.  Content taggingcould include tagging of named entities (names of people, places, organizations), topics,contact information, etc.  Tools such as Alchemy or the Stanford NLP Toolkit may beleveraged for this purpose.  The tagged data can subsequently be used in faceted search,analytics, graph analysis, etc.</p>
@@ -33,22 +32,22 @@ should clearly showcase the components/features you have implemented.<br/>
 <p align="justify">This option involves leveraging the faceted search capability provided by Solr to allowvarious types of drill-down.  This assumes some level of content tagging (see above).  Facetscould include people, topics, locations etc. You are encouraged to experiment with differentUI options including hierarchies, graphs, etc.</p>
 
 ### (iii)  Cross-Document Analytics
-<p align="justify">This option involves computing various analytics that provide insight into the data.<br/>
+<p align="justify">This option involves computing various analytics that provide insight into the data.<br/><br/>
 Examples include:  volume of tweets by region/topic/hashtag, sentiment analysis, analyticsillustrating cultural differences, etc.   The ability to identify and display trending topics (on adaily/weekly basis) would also be interesting.
 
 Analytics should be presented using intuitive visual graphs – several widget libraries areavailable.  Map visualization is also encouraged.</p>
 
 ### (iv)  Topic Models and/or LSI
-<p align="justify">In this option, you will implement Latent Semantic Indexing on the corpus of data you havecollected to demonstrate “semantic search”, rather than traditional keyword search.  For thoseof you familiar with advanced machine learning techniques such as topic models (LDA), youare encouraged to apply such techniques to the data in order to discover and group tweetsbased on different topics. You may not use the in-built Carrot clustering to complete thissection however.</p>
+<p align="justify">In this option, you will implement Latent Semantic Indexing on the corpus of data you havecollected to demonstrate “semantic search”, rather than traditional keyword search.  For thoseof you familiar with advanced machine learning techniques such as topic models (LDA), youare encouraged to apply such techniques to the data in order to discover and group tweetsbased on different topics. You may not use the in-built Carrot clustering to complete this section however.</p>
 
 ### (v)  Cross-Lingual Retrieval/Analysis
 <p align="justify">In this option, you will demonstrate cross-lingual capabilities.  This can take on manyaspects:  one example involves cross-lingual queries, and automatic translation of resultingforeign language snippets.  For example, a search for a particular individual/place/organization should take place simultaneously in multiple languages –achieved by automatically tagging and normalizing entities across languages.</p>
 
 ### (vi)  Ranking tweets
-<p align="justify">This option involves coming up with a novel ranking algorithm for tweets that balancesrecency with importance of content when presenting tweets.  It could also take into account thepopularity of a tweet, or the influence of a person tweeting, the location of the user, theirinterests etc..</p>
+<p align="justify">This option involves coming up with a novel ranking algorithm for tweets that balancesrecency with importance of content when presenting tweets.  It could also take into account thepopularity of a tweet, or the influence of a person tweeting, the location of the user, theirinterests etc...</p>
 
 ### (vii) Summarization
-<p align="justify">This option focuses on summarizing tweets through the use of news/Wikipedia articles. You canpick a particular hashtag or a named entity like a person, place, etc. and provide a summarybased on your index. The task would involve partitioning your data into sub-topics or sub-eventsbased on tagged information and then choosing a summary for each sub-topic. Since we do notexpect language generation, you could use news headlines or extracts from WIkipedia articles asbullet points in this summary.</p>
+<p align="justify">This option focuses on summarizing tweets through the use of news/Wikipedia articles. You canpick a particular hashtag or a named entity like a person, place, etc. and provide a summarybased on your index. The task would involve partitioning your data into sub-topics or sub-eventsbased on tagged information and then choosing a summary for each sub-topic. Since we do notexpect language generation, you could use news headlines or extracts from Wikipedia articles asbullet points in this summary.</p>
 
 ### (viii)  Graphical Analysis
 <p align="justify">This option involves inferring some graphical structure from the tweets, based on entities mentioned, topics discussed etc.  Graph structures (or relationships between tweets) could also beinferred through connection of topics reflected in the tweets:  wikification may be helpful in thisprocess.  Once a graph is constructed, use graph algorithms to find important tweets, entities etc.</p>
@@ -61,7 +60,8 @@ Analytics should be presented using intuitive visual graphs – several widget l
 <p align="justify">Compress these files into a tar file. File name is project_partc_[ubitname].tar ( no other compressed format is allowed)</p>
 
 <p align="justify">For example my ubit name is ruhan then I should use following command to submit.</p>
-##### <p align="center"> submit_cse535 project_partc_ruhan.tar</p>
+
+<p align="center"><b>submit_cse535 project_partc_ruhan.tar</b></p>
 
 <p align="justify">Choose cse435 or cse535 based on your own course level. Although multiple submissions can be made till the deadline, we recommend that one team member make all submissions to ease the grading process.</p>
 

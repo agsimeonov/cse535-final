@@ -1,56 +1,97 @@
-# encoding=utf-8
-import tweepy, warnings, json, time, io
-import datetime
-from tweepy import OAuthHandler
+from datetime import datetime
+from json import loads, dumps
+from os import path, makedirs
+from threading import Thread
+from time import sleep
+from urllib2 import quote
 
-#declaring constants
-MAX_TWEETS = 50 #tweets per day per language(as in langs)
+from tweepy.api import API
+from tweepy.auth import OAuthHandler
+from tweepy.cursor import Cursor
+from tweepy.error import TweepError
 
 
-#reading settings from file
-#note: keys.cfg must be is assumed to be in the same dir as __file__
-json_data=open("keys.cfg").read()
-data = json.loads(json_data)
+cfgJson = open('keys.cfg').read()
+cfgDict = loads(cfgJson)
 
-consumer_key = data['consumer_key'] 
-consumer_secret = data['consumer_secret']
-access_token = data['access_token']
-access_secret= data['access_secret']
-lang = data['lang']
+consumerKeys    = cfgDict['consumer_keys']
+consumerSecrets = cfgDict['consumer_secrets']
+accessTokens    = cfgDict['access_tokens']
+accessSecrets   = cfgDict['access_secrets']
+langs           = cfgDict['langs']
+queries         = cfgDict['queries']
+numDays         = cfgDict['days']    # Number of days (until today)
+perDay          = cfgDict['per_day'] # Total tweets per day
+outDir          = cfgDict['out_dir']
 
-oAuth = OAuthHandler(consumer_key,consumer_secret)
-oAuth.set_access_token(access_token,access_secret)
-api = tweepy.API(oAuth)
+currentTime = datetime.now()
+year        = str(currentTime.year)
+month       = str(currentTime.month)
+day         = int(currentTime.day)
+sinces      = []
+untils      = []
 
-trends = api.trends_place(1)[0]
-queries = [ x['name'].encode('utf8') for x in trends['trends']]
+if not path.exists(outDir): 
+    makedirs(outDir)
 
-mlist = []
-for query in queries:
-    searched_tweets = [status._json for status in tweepy.Cursor(api.search, q=query,lang=lang).items(MAX_TWEETS)]
-    """
-    for i in searched_tweets:
-        a = {}
-        a["id"] = i.id
+for i in range(day - numDays, day):
+    sinces.append(year + '-' + month + '-' + str(i))
+    untils.append(year + '-' + month + '-' + str(i + 1)) 
+    datePath = path.join(outDir, sinces[len(sinces) - 1])
+    if not path.exists(datePath):
+        makedirs(datePath)
+    for lang in langs:
+        dateLangPath = path.join(datePath, lang)
+        if not path.exists(dateLangPath):
+            makedirs(dateLangPath)
 
-        a["lang"] = i.lang  
-        
-        if lang == 'en':
-            a["text_en"],a["text_de"],a["text_ru"] = i.text,"",""
-        elif lang == 'de':
-            a["text_de"],a["text_en"],a["text_ru"] = i.text,"",""
-        else:
-            a["text_ru"],a["text_en"],a["text_de"] = i.text,"",""        
-        
-        fmt = '%Y-%m-%dT%H:%M:%S000Z'
-        temp = datetime.datetime.strptime(str(i.created_at),'%Y-%m-%d %H:%M:%S')
-        a["created_at"] = temp.strftime(fmt)   
-            
-        a["tweet_hashtags"] = [tags["text"] for tags in i.entities["hashtags"]]
-        a["tweet_urls"] = [obj["expanded_url"] for obj in [tags for tags in i.entities["urls"]]]
-        mlist.append(a)               
-    print len(mlist)        
-    """
-with io.open(time.strftime("%d_%m_%Y") + '.json','w',encoding='utf-8')  as output:
-    output.write(unicode(json.dumps(searched_tweets, ensure_ascii=False, encoding='utf8')))
+def scrapeThread(index):
+    auth = OAuthHandler(consumerKeys[index], consumerSecrets[index])
+    auth.set_access_token(accessTokens[index], accessSecrets[index])
+    api = API(auth)
+  
+    try:
+        api.verify_credentials()
+    except TweepError:
+        print "Failed to authenticate - most likely reached rate limit/incorrect credentials!"
+        return
+    else:
+        print "You have successfully logged on as: " + api.me().screen_name
+  
+    for i in range(0, numDays):
+        for query in queries[index]:
+            count = 0
+            cursor = Cursor(api.search,
+                            q=quote(query.encode('utf-8')),
+                            lang=langs[index],
+                            since=sinces[i],
+                            until=untils[i],
+                            include_entities=True).items()
+            while True:
+                try:
+                    tweet = cursor.next()
+                    utc = datetime.now().strftime('%Y%m%dT%H%M%S%f')
+                    outPath = path.join(outDir, sinces[i], langs[index], utc + '.json')
+                    with open(outPath, 'w') as output:
+                        output.write(dumps(tweet._json, ensure_ascii=False).encode('utf8'))
+                    count += 1
+                    if count == int(perDay / len(queries[index])):
+                        break
+                except TweepError:
+                    print langs[index] + " - rate limit reached! Pausing thread for 15 minutes."
+                    sleep(60 * 15)
+                    continue
+                except StopIteration:
+                    break
+            print str(count) + " tweets stored in " + outPath
 
+threads = []
+threadCount = len(consumerKeys)
+
+for index in range(0, threadCount):
+    thread = Thread(target=scrapeThread, args=[index])
+    thread.start()
+    threads.append(thread)
+
+for thread in threads:
+    thread.join()

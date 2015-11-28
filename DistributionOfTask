@@ -25,51 +25,34 @@ General :-
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
-Riaz
--> Write Schema for German Language
--> Implement Frontend for Search System (Refer Readme.md for UI)
-(see if helps : https://github.com/diasks2/ruby-nlp)
+Riaz and Karan
+-> Implement Frontend(complete UI) module for the Search System using Angular JS (See Search UI on Readme.md for details)
 
--> Module : View
-1. AngularJs/HTMS/CSS/JavaScript for our Search Page
+-> References
+1. AngularJs/HTML/CSS/JavaScript for our Search Page
 2. JavaScript/Jquery library for showing graphs
 3. IFrame for showing "Graphical component nodes graphs"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Alex
--> Write Schema for Russian Language
 -> Implement "Graphical Component" and "Cross Document Analysis Component"
 -> For Graphical Component : Implement Index time user relationship graph (see : http://sigmajs.org/)
 -> For Cross Document Analysis Component : Implement query time graphs - Line Chart and Pie Chart (see : http://www.highcharts.com/demo/)
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
-Raman and Karan
--> Write Schema for French and Arabic Language
--> Implement backend for Search System using "Ruby on Rails" and "Sunspot"
-(see if helps : https://github.com/diasks2/ruby-nlp)
+Raman
+-> Implement complete backend for the Search System on Solr
 
--> Module : Model
-1. database Schema design
-2. Tables relationship
-3. Search function :- which define the fields to index and boost on the field
-
--> Module : Controller
-1. Implementing API's for interaction with WebView
-2. Implementating Pagination
-3. Implementing Faceting
-4. Functionality of updating filter count and metadata
-5. AutoSuggest
-6. Spellcheck
-7. Query Translation using Bing API (Google API is paid now)
-8. Implement Document Clustering using Carrot (see : http://project.carrot2.org/)
+-> Module
+1. Faceting
+2. Spellcheck
+3. Query Parsers
+4. Handling multilingual Query Translation and search
+5. Document Clustering using Carrot (see : http://project.carrot2.org/)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Akash
--> Fetch ~12000 raw tweets in total in a span of 5 days.
-   1. ~3000 tweets each day for Five different languages (English, French, Russian, German, Arabic).
-   2. ~600 tweets for each language/day
-   
--> Write Schema for English Language
+-> Suggest Schema for English, Russian, German, French and Arabic Languages
 -> Implement "Intelligent Ranking Component"
 -> Any other functionality/tweak on solr which will give us an edge over others

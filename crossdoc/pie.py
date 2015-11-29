@@ -12,23 +12,34 @@ if len(argv) != 4:
   exit(0)
 
 jsonInput = loads(argv[1])
-docs = jsonInput['response']['docs']
+if 'response' in jsonInput:
+  if 'docs' in jsonInput['response']:
+    docs = jsonInput['response']['docs']
+  else:
+    print "'docs' list not found in JSON 'response'!"
+    exit(0)
+else:
+  print "'response' dictionary not found in JSON!"
+  exit(0)
 langs = {}
 countries = {}
 
 for doc in docs:
-  lang = doc['lang']
-  lang = lang.upper()
-  country = doc['country']
-  if lang in langs:
-    langs[lang] += 1
-  else:
-    langs[lang] = 1
-  if country:
-    if country in countries:
-      countries[country] += 1
-    else:
-      countries[country] = 1
+  if 'lang' in doc:
+    lang = doc['lang']
+    if lang:
+      lang = lang.upper()
+      if lang in langs:
+        langs[lang] += 1
+      else:
+        langs[lang] = 1
+  if 'country' in doc:
+    country = doc['country']
+    if country:
+      if country in countries:
+        countries[country] += 1
+      else:
+        countries[country] = 1
 
 chart = Highchart()
 options = {'title' : {'text' : 'Results per Language'}} 

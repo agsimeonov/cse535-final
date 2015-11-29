@@ -50,7 +50,6 @@ def locator(dictionary, geolocator, reverse):
     if location:
       if location.address:
         output[item[0]] = location.address.split(',')[-1].strip()
-        print output[item[0]]
     sleep(1)
   return output
 

@@ -7,12 +7,12 @@ pip install python-highcharts
 
 In order to run:
 ```
-python pie.py <JSON Query Results>
+python pie.py <JSON Query Results> <By Language Output File> <By Country Output File>
 ```
 
 At minimum the JSON Query Result needs to have a structure akin to the following example:
 ```
-{"response":{"numFound":3,"docs":[{"lang":"de"},{"lang":"en"},{"lang":"ru"}]}}
+{"response":{"numFound":3,"docs":[{"lang":"de","country":"Germany"},{"lang":"en","country":"United Kingdom"},{"lang":"ru","country":"Russian Federation"}]}}
 ```
 
 ## Geocoder

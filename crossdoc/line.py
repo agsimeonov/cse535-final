@@ -9,8 +9,9 @@ DOCS       = 'docs'
 RESPONSE   = 'response'
 CREATED_AT = 'created_at'
 HASHTAGS   = 'tweet_hashtags'
-TITLE    = 'title'
-TEXT     = 'text'
+TITLE      = 'title'
+TEXT       = 'text'
+TOP        = 5
 
 # Make sure we have the correct command line arguments
 if len(argv) != 3:
@@ -58,7 +59,8 @@ for doc in docs:
   data[createdAt] = counts
   
 chart = Highchart()
-options = {TITLE : {TEXT : 'Results per Language'}} 
+# TODO: LOOK HERE http://www.highcharts.com/demo/line-basic/dark-unica
+options = {TITLE : {TEXT : 'Results per Language'}, 'xAxis' : {'categories' : ['cat','dog','fish']}} 
 chart.set_dict_options(options)
-chart.add_data_set(data.items(), series_type='line', name='Results')
+chart.add_data_set([1,2,3], series_type='line', name='Results')
 chart.save_file(splitext(argv[2])[0]) 

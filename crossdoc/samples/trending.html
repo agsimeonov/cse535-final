@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+ 
+
+
+
+
+            Highcharts.setOptions({"lang": {}, "global": {}});
+            var option = {"loading": {}, "subtitle": {}, "xAxis": {"categories": ["2015-11-28", "2015-11-29", "2015-11-30"]}, "title": {"text": "Top Trending Topics Over Time"}, "series": {}, "labels": {}, "yAxis": {"title": {"text": "Results containing Hashtag"}}, "chart": {"renderTo": "container"}, "tooltip": {}, "plotOptions": {}, "credits": {"enabled": false}, "colors": {}, "pane": {}, "exporting": {}, "drilldown": {}, "navigation": {}, "legend": {}};
+
+
+            var data = [{"data": [3, 0, 0], "type": "line", "name": "a"}, {"data": [3, 1, 2], "type": "line", "name": "c"}, {"data": [3, 1, 0], "type": "line", "name": "b"}, {"data": [0, 0, 2], "type": "line", "name": "e"}, {"data": [0, 1, 2], "type": "line", "name": "d"}];
+            option.series = data;
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+
+
+
+
+ 
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

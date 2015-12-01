@@ -11,7 +11,24 @@ python pie.py <JSON Query Results> <By Language Output File> <By Country Output 
 ```
 
 At minimum the JSON Query Result needs to have a structure akin to the following example:
+```json
+{"response":{"numFound":3,"docs":[{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-29T14:32:44Z","tweet_hashtags":["b","c","d"]},{"tweet_created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]},{"tweet_created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]}]}}
 ```
+
+## Line Chart Generator
+
+Prerequisites:
+```
+pip install python-highcharts
+```
+
+In order to run:
+```
+python line.py <JSON Query Results> <Number of Trending Topics> <Line Chart Output File>
+```
+
+At minimum the JSON Query Result needs to have a structure akin to the following example:
+```json
 {"response":{"numFound":3,"docs":[{"tweet_lang":"de","user_location":"Germany"},{"tweet_lang":"en","user_location":"United Kingdom"},{"tweet_lang":"ru","user_location":"Russian Federation"}]}}
 ```
 

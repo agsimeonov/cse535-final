@@ -12,7 +12,7 @@ python pie.py <JSON Query Results> <By Language Output File> <By Country Output 
 
 At minimum the JSON Query Result needs to have a structure akin to the following example:
 ```
-{"response":{"numFound":3,"docs":[{"lang":"de","country":"Germany"},{"lang":"en","country":"United Kingdom"},{"lang":"ru","country":"Russian Federation"}]}}
+{"response":{"numFound":3,"docs":[{"tweet_lang":"de","user_location":"Germany"},{"tweet_lang":"en","user_location":"United Kingdom"},{"tweet_lang":"ru","user_location":"Russian Federation"}]}}
 ```
 
 ## Geocoder

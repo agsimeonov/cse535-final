@@ -7,7 +7,7 @@ from highcharts.highcharts.highcharts import Highchart
 
 DOCS       = 'docs'
 RESPONSE   = 'response'
-CREATED_AT = 'created_at'
+CREATED_AT = 'tweet_created_at'
 HASHTAGS   = 'tweet_hashtags'
 TITLE      = 'title'
 TEXT       = 'text'
@@ -20,7 +20,7 @@ if len(argv) != 3:
   exit(0)
 
 jsonInput = loads(argv[1])
-jsonInput = loads('{"response":{"numFound":3,"docs":[{"created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"created_at":"2015-11-29T14:32:44Z","tweet_hashtags":["b","c","d"]},{"created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]},{"created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]}]}}')
+jsonInput = loads('{"response":{"numFound":3,"docs":[{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-28T14:32:44Z","tweet_hashtags":["a","b","c"]},{"tweet_created_at":"2015-11-29T14:32:44Z","tweet_hashtags":["b","c","d"]},{"tweet_created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]},{"tweet_created_at":"2015-11-30T14:32:44Z","tweet_hashtags":["c","d","e"]}]}}')
 if RESPONSE in jsonInput:
   if DOCS in jsonInput[RESPONSE]:
     docs = jsonInput[RESPONSE][DOCS]

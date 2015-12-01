@@ -7,8 +7,8 @@ from highcharts import Highchart
 
 DOCS     = 'docs'
 RESPONSE = 'response'
-LANG     = 'lang'
-COUNTRY  = 'country'
+LANG     = 'tweet_lang'
+COUNTRY  = 'user_location'
 TITLE    = 'title'
 TEXT     = 'text'
 

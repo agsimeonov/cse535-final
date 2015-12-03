@@ -1,5 +1,5 @@
 from json import loads
-from os.path import splitext
+from os.path import isfile, splitext
 from sys import argv, exit
 
 from highcharts import Highchart
@@ -18,7 +18,12 @@ if len(argv) != 4:
   print "python pie.py <JSON Query Results> <By Language Output File> <By Country Output File>"
   exit(0)
 
-jsonInput = loads(argv[1])
+if isfile(argv[1]):
+  with open(argv[1], 'r') as jsonFile:
+    jsonInput = loads(jsonFile.read())
+else:
+  jsonInput = loads(argv[1])
+
 if RESPONSE in jsonInput:
   if DOCS in jsonInput[RESPONSE]:
     docs = jsonInput[RESPONSE][DOCS]

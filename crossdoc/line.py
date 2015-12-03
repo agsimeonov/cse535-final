@@ -1,6 +1,6 @@
 from datetime import datetime
 from json import loads
-from os.path import splitext
+from os.path import isfile, splitext
 from sys import argv, exit
 
 from highcharts.highcharts.highcharts import Highchart
@@ -29,7 +29,11 @@ if int(argv[2]) <= 0:
   print "The number of tranding topics must be >= 0!"
   exit(0)
 
-jsonInput = loads(argv[1])
+if isfile(argv[1]):
+  with open(argv[1], 'r') as jsonFile:
+    jsonInput = loads(jsonFile.read())
+else:
+  jsonInput = loads(argv[1])
 
 if RESPONSE in jsonInput:
   if DOCS in jsonInput[RESPONSE]:
@@ -50,7 +54,7 @@ for doc in docs:
   if not HASHTAGS in doc:
     continue
   
-  createdAt = datetime.strptime(doc[CREATED_AT], '%Y-%m-%dT%H:%M:%SZ')
+  createdAt = datetime.strptime(doc[CREATED_AT], '%Y-%m-%dT%H:%M:%SZ').date().isoformat()
   hashtags = doc[HASHTAGS]
   
   if not hashtags:
@@ -88,7 +92,7 @@ for i in range(min(int(argv[2]), len(top))):
       dataSet.append(0)
   series[hashtag] = dataSet
 
-categories = [item[0].date().isoformat() for item in sortedItems]
+categories = [item[0] for item in sortedItems]
 
 chart = Highchart()
 chart.set_options(TITLE, {TEXT : "Top Trending Topics Over Time"})

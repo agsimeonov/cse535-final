@@ -1,0 +1,95 @@
+********** Local Host Commands ************
+curl 'http://localhost:8983/solr/UntitledSolr/update?commit=true' --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
+
+bin/solr stop -all
+
+bin/solr start -s UntitledSolr/solr
+
+curl 'http://localhost:8983/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_en_2015-11-20.json) -H 'Content-type:application'
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchEn?q=*:*&rows=1&wt=json&indent=true&debugQuery=true
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchEn?q=""Parris got severe pain""&df=tweet_text_en, tweet_text_exact_en,tweet_text_ru,tweet_text_exact_ru,tweet_text_de, tweet_text_exact_de,tweet_text_fr, tweet_text_exact_fr,tweet_text_ar,tweet_text_exact_ar&fl=tweet_id,tweet_text_en,tweet_text_ru,tweet_text_de,tweet_text_fr,tweet_text_ar%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchRu?q="Пэррис получил тяжелый приступ"&df=tweet_text_ru,%20tweet_text_exact_ru&fl=tweet_id,tweet_text_ru%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchDe?q="Parris bekam schweren Angriff"&df=tweet_text_de,%20tweet_text_exact_de&fl=tweet_id,tweet_text_de%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchFr?q="Parris a obtenu attaque sévère"&df=tweet_text_fr,%20tweet_text_exact_fr&fl=tweet_id,tweet_text_fr%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+http://localhost:8983/solr/UntitledSolr/untitledSearchAr?q="حصلت باريس هجوم شديد"&df=tweet_text_ar,%20tweet_text_exact_ar&fl=tweet_id,tweet_text_ar%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+
+********** Koding Commands ************
+
+curl 'http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/update?commit=true' --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
+
+~/solr/solr-5.3.0/bin/solr stop -all  
+
+~/solr/solr-5.3.0/bin/solr start -s ~/solr/solr-5.3.0/UntitledSolr/solr
+
+curl 'http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo ~/solr/solr-5.3.0/UntitledSolr/extracted_tweet_d	ata/tweet_en_2015-11-20.json) -H 'Content-type:application'
+
+
+http://ramanpreet1990.koding.io:8983/solr/EuropeonRefugee/select?q="Russia intervention in Syria"&fl=text_en,id%2Cscore&wt=json&indent=true&rows=10
+
+
+
+********** FACETING ************
+
+http://localhost:8983/solr/EuropeonRefugee/untitledSearchEn?q="en"&df=text_en,created_at,lang&fl=id,text_en,created_at,lang%2Cscore&wt=json&facet=true&&facet.limit=-1&facet.field=lang&indent=true&&debugQuery=true&rows=10
+
+
+http://localhost:8983/solr/EuropeonRefugee/untitledSearchEn?q="en"&df=text_en,created_at,lang&fl=id,text_en,created_at,lang%2Cscore&wt=json&facet=true&facet.field=text_en&facet.prefix=xx&facet.limit=5&facet.mincount=1&indent=true&&debugQuery=true&rows=10
+
+
+http://localhost:8983/solr/EuropeonRefugee/untitledSearchEn?q="russia"&rows=0&fl=id,text_en,created_at,lang%2Cscore&wt=json&facet=true&facet.range=created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B10DAYS&facet.range.hardend=true&indent=true&&debugQuery=true&rows=10
+
+
+http://localhost:8983/solr/EuropeonRefugee/untitledSearchEn?q="russia"&rows=0&fl=id,text_en,created_at,lang%2Cscore&wt=json&facet=true&facet.range=created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B10DAYS&facet.range.hardend=true&indent=true&&debugQuery=true&rows=10
+
+
+:[2015-09-29T00:00:00Z TO 2015-09-29T23:59:99.999Z]
+
+
+
+
+********** Other Important Details ************
+
+Install Solr :-
+​curl -­O http://apache.mirrors.lucidnetworks.net/lucene/solr/5.3.0/solr­5.3.0.tgz
+​tar xf solr-­5.3.0.tgz
+
+
+All libs in :-
+~/solr/solr-5.3.0/server/solr-webapp/webapp/WEB-INF/lib
+
+
+
+********** Run Trec Evaluation **************
+
+
+./trec_eval -q -c -M1000 qrel.txt query_output.txt >> trecOutput.txt
+
+./trec_eval -q -c -M1000 -m map -m bpref -m ndcg -m set_F.05 qrel.txt query_output.txt >> trecOutput.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+

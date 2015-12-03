@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!--  
+ This is the Solr schema file. This file should be named "schema.xml" and
+ should be in the conf directory under the solr home
+ (i.e. ./solr/conf/schema.xml by default) 
+ or located where the classloader for the Solr webapp can find it.
+
+ This example schema is the recommended starting point for users.
+ It should be kept correct and concise, usable out-of-the-box.
+
+ For more information, on how to customize this file, please see
+ http://wiki.apache.org/solr/SchemaXml
+
+ PERFORMANCE NOTE: this schema includes many optional features and should not
+ be used for benchmarking.  To improve performance one could
+  - set stored="false" for all fields possible (esp large fields) when you
+    only need to search on the field but don't need to return the original
+    value.
+  - set indexed="false" if you don't need to search on the field, but only
+    return the field as a result of searching on other indexed fields.
+  - remove all unneeded copyField statements
+  - for best index size and searching performance, set "index" to false
+    for all general text fields, use copyField to copy them to the
+    catchall "text" field, and use that for searching.
+  - For maximum indexing performance, use the ConcurrentUpdateSolrServer
+    java client.
+  - Remember to run the JVM in server mode, and use a higher logging level
+    that avoids logging every request
+-->
+
+<schema name="UntitledSchema" version="1.5">
+  <!-- attribute "name" is the name of this schema and is only used for display purposes.
+       version="x.y" is Solr's version number for the schema syntax and 
+       semantics.  It should not normally be changed by applications.
+
+       1.0: multiValued attribute did not exist, all fields are multiValued 
+            by nature
+       1.1: multiValued attribute introduced, false by default 
+       1.2: omitTermFreqAndPositions attribute introduced, true by default 
+            except for text fields.
+       1.3: removed optional field compress feature
+       1.4: autoGeneratePhraseQueries attribute introduced to drive QueryParser
+            behavior when a single string produces multiple tokens.  Defaults 
+            to off for version >= 1.4
+       1.5: omitNorms defaults to true for primitive field types 
+            (int, float, boolean, string...)
+     -->
+
+
+   <!-- Valid attributes for fields:
+     name: mandatory - the name for the field
+     type: mandatory - the name of a field type from the 
+       <types> fieldType section
+     indexed: true if this field should be indexed (searchable or sortable)
+     stored: true if this field should be retrievable
+     docValues: true if this field should have doc values. Doc values are
+       useful for faceting, grouping, sorting and function queries. Although not
+       required, doc values will make the index faster to load, more
+       NRT-friendly and more memory-efficient. They however come with some
+       limitations: they are currently only supported by StrField, UUIDField
+       and all Trie*Fields, and depending on the field type, they might
+       require the field to be single-valued, be required or have a default
+       value (check the documentation of the field type you're interested in
+       for more information)
+     multiValued: true if this field may contain multiple values per document
+     omitNorms: (expert) set to true to omit the norms associated with
+       this field (this disables length normalization and index-time
+       boosting for the field, and saves some memory).  Only full-text
+       fields or fields that need an index-time boost need norms.
+       Norms are omitted for primitive (non-analyzed) types by default.
+     termVectors: [false] set to true to store the term vector for a
+       given field.
+       When using MoreLikeThis, fields used for similarity should be
+       stored for best performance.
+     termPositions: Store position information with the term vector.  
+       This will increase storage costs.
+     termOffsets: Store offset information with the term vector. This 
+       will increase storage costs.
+     required: The field is required.  It will throw an error if the
+       value does not exist
+     default: a value that should be used if no value is specified
+       when adding a document.
+   -->
+
+   <!-- field names should consist of alphanumeric or underscore characters only and
+      not start with a digit.  This is not currently strictly enforced,
+      but other field names will not have first class support from all components
+      and back compatibility is not guaranteed.  Names with both leading and
+      trailing underscores (e.g. _version_) are reserved.
+   -->
+
+   <!-- If you remove this field, you must _also_ disable the update log in solrconfig.xml
+      or Solr won't start. _version_ and update log are required for SolrCloud
+   --> 
+   <field name="_version_" type="long" indexed="true" stored="true"/>
+   
+   <!-- points to the root document of a block of nested documents. Required for nested
+      document support, may be removed otherwise
+   -->
+   <field name="_root_" type="string" indexed="true" stored="false"/>
+
+
+  <!-- Similarity is the scoring routine for each document vs. a query.
+       A custom Similarity or SimilarityFactory may be specified here, but 
+       the default is fine for most applications.  
+       For more info: http://wiki.apache.org/solr/SchemaXml#Similarity
+    -->
+    <similarity class="solr.BM25SimilarityFactory">
+			<float name="k1">2.4</float>
+			<float name="b">0.2</float>
+    </similarity>
+
+
+    <!-- *** Tweet Specific details *** -->   
+    <field name="tweet_id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+
+    <uniqueKey>tweet_id</uniqueKey>
+
+    <field name="tweet_created_at" type="tdate" indexed="true" stored="true" docValues="true"/>
+    
+    <!-- Correspond to the machine-detected language of the Tweet text -->  
+    <field name="tweet_lang" type="string" indexed="true" stored="true" docValues="true"/>
+    
+    <field name="tweet_text_en" type="tweet_text_en" indexed="true" stored="true"/>
+    <field name="tweet_text_ru" type="tweet_text_ru" indexed="true" stored="true"/>
+    <field name="tweet_text_de" type="tweet_text_de" indexed="true" stored="true"/>
+    <field name="tweet_text_fr" type="tweet_text_fr" indexed="true" stored="true"/>
+    <field name="tweet_text_ar" type="tweet_text_ar" indexed="true" stored="true"/>
+    
+    <!-- Indicates approximately how many times this Tweet has been “liked” by Twitter users -->   
+    <field name="tweet_favorite_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- Number of times this Tweet has been retweeted -->   
+    <field name="tweet_retweet_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- Represents URLs included in the text of a Tweet -->   
+    <field name="tweet_urls" type="text_complete" indexed="true" stored="true" multiValued="true"/>
+
+    <field name="tweet_hashtags" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
+
+    <!-- Represents other Twitter users mentioned in the text of the Tweet -->   
+    <field name="tweet_users_mentioned" type="text_complete" indexed="true" stored="true" multiValued="true"/>
+
+
+    <!-- *** User Specific details *** -->   
+    <field name="user_id" type="string" indexed="true" stored="true"/> 
+    <field name="user_created_at" type="tdate" indexed="true" stored="true"/>
+
+    <field name="user_name" type="string" indexed="true" stored="true"/> 
+
+    <!-- Unique name when mentioned as "https://twitter.com/user_screen_name" will give user's twitter home page link -->   
+    <field name="user_screen_name" type="string" indexed="true" stored="true"/>
+
+    <!-- user’s self-declared user interface language. May or may not have anything to do with the content of their Tweets -->   
+    <field name="user_lang" type="string" indexed="true" stored="true" docValues="true"/>
+
+    <!-- The user-defined UTF-8 string describing their account -->   
+    <field name="user_description" type="string" indexed="true" stored="true"/>
+
+    <!-- When true, indicates that the user has a verified account -->   
+    <field name="user_verified" type="boolean" indexed="true" stored="true"/>
+    
+    <!-- Not actually a friends but its the number of users this account is following -->   
+    <field name="user_friends_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- The number of followers this account currently has -->   
+    <field name="user_followers_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- The number of tweets (including retweets) issued by the user -->   
+    <field name="user_statuses_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- The number of tweets this user has favorited in the account’s lifetime -->   
+    <field name="user_favourites_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- The number of public lists that this user is a member of -->   
+    <field name="user_listed_count" type="tlong" indexed="true" stored="true"/>
+
+    <!-- User's location specifically Country, extracted from its coordinates -->   
+    <field name="user_location" type="string" indexed="true" stored="true" docValues="true"/>
+
+
+   <fieldType name="text_complete" class="solr.TextField" positionIncrementGap="100">
+        <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+	</analyzer>
+    </fieldType>
+
+    <!--   ********************* X X X *****************************  -->
+
+    <!-- English -->
+    <fieldType name="tweet_text_en" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
+           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+       </analyzer>
+
+        <analyzer type="query">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+	    <filter class="solr.TrimFilterFactory"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+        </analyzer>
+    </fieldType>
+
+
+    <!-- Russian -->
+    <fieldType name="tweet_text_ru" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
+           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+      
+        <analyzer type="query">
+	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+        </analyzer>
+    </fieldType>
+
+
+    <!-- German -->
+    <fieldType name="tweet_text_de" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+	    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
+           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+      
+        <analyzer type="query">
+	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+	    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
+	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+        </analyzer>
+    </fieldType>
+
+     <!-- French -->
+    <fieldType name="tweet_text_fr" class="solr.TextField" positionIncrementGap="100">
+      <analyzer> 
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- removes l', etc -->
+        <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_fr.txt" format="snowball" />
+        <filter class="solr.FrenchLightStemFilterFactory"/>
+        <!-- less aggressive: <filter class="solr.FrenchMinimalStemFilterFactory"/> -->
+        <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="French"/> -->
+      </analyzer>
+    </fieldType>
+
+
+    <!-- Arabic -->
+    <fieldType name="tweet_text_ar" class="solr.TextField" positionIncrementGap="100">
+      <analyzer> 
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- for any non-arabic -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ar.txt" />
+        <!-- normalizes ﻯ to ﻱ, etc -->
+        <filter class="solr.ArabicNormalizationFilterFactory"/>
+        <filter class="solr.ArabicStemFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+
+    <!--   ********************* X X X *****************************  -->
+
+    <field name="tweet_text_exact_en" type="tweet_text_exact_en" indexed="true" stored="false"/>
+    <field name="tweet_text_exact_ru" type="tweet_text_exact_ru" indexed="true" stored="false"/>
+    <field name="tweet_text_exact_de" type="tweet_text_exact_de" indexed="true" stored="false"/>
+    <field name="tweet_text_exact_fr" type="tweet_text_exact_fr" indexed="true" stored="false"/>
+    <field name="tweet_text_exact_ar" type="tweet_text_exact_ar" indexed="true" stored="false"/>
+
+    <copyField source="tweet_text_en" dest="tweet_text_exact_en"/>
+    <copyField source="tweet_text_de" dest="tweet_text_exact_de"/>
+    <copyField source="tweet_text_ru" dest="tweet_text_exact_ru"/>
+    <copyField source="tweet_text_fr" dest="tweet_text_exact_fr"/>
+    <copyField source="tweet_text_ar" dest="tweet_text_exact_ar"/>
+ 
+   <!-- Exact English text-->
+    <fieldType name="tweet_text_exact_en" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+         <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+    
+    <!-- Exact Russian text-->
+    <fieldType name="tweet_text_exact_ru" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+         <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+        </analyzer>
+    </fieldType>
+    
+    
+    <!-- Exact German text -->
+    <fieldType name="tweet_text_exact_de" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+         <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+    
+    <!-- Exact French text -->
+    <fieldType name="tweet_text_exact_fr" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+         <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+        </analyzer>
+    </fieldType>
+    
+    <!-- Exact Arabic text -->
+    <fieldType name="tweet_text_exact_ar" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+         <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+            <filter class="solr.TrimFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+    <!--   ********************* X X X *****************************  -->
+
+
+    <!-- The StrField type is not analyzed, but indexed/stored verbatim.
+       It supports doc values but in that case the field needs to be
+       single-valued and either required or have a default value.
+      -->
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+
+    <!-- boolean type: "true" or "false" -->
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+
+    <!-- sortMissingLast and sortMissingFirst attributes are optional attributes are
+         currently supported on types that are sorted internally as strings
+         and on numeric types.
+	     This includes "string","boolean", and, as of 3.5 (and 4.x),
+	     int, float, long, date, double, including the "Trie" variants.
+       - If sortMissingLast="true", then a sort on this field will cause documents
+         without the field to come after documents with the field,
+         regardless of the requested sort order (asc or desc).
+       - If sortMissingFirst="true", then a sort on this field will cause documents
+         without the field to come before documents with the field,
+         regardless of the requested sort order.
+       - If sortMissingLast="false" and sortMissingFirst="false" (the default),
+         then default lucene sorting will be used which places docs without the
+         field first in an ascending sort and last in a descending sort.
+    -->    
+
+    <!--
+      Default numeric field types. For faster range queries, consider the tint/tfloat/tlong/tdouble types.
+
+      These fields support doc values, but they require the field to be
+      single-valued and either be required or have a default value.
+    -->
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+
+    <!--
+     Numeric field types that index each value at various levels of precision
+     to accelerate range queries when the number of values between the range
+     endpoints is large. See the javadoc for NumericRangeQuery for internal
+     implementation details.
+
+     Smaller precisionStep values (specified in bits) will lead to more tokens
+     indexed per value, slightly larger index size, and faster range queries.
+     A precisionStep of 0 disables indexing at different precision levels.
+    -->
+    <fieldType name="tint" class="solr.TrieIntField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
+
+    <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
+         is a more restricted form of the canonical representation of dateTime
+         http://www.w3.org/TR/xmlschema-2/#dateTime    
+         The trailing "Z" designates UTC time and is mandatory.
+         Optional fractional seconds are allowed: 1995-12-31T23:59:59.999Z
+         All other components are mandatory.
+
+         Expressions can also be used to denote calculations that should be
+         performed relative to "NOW" to determine the value, ie...
+
+               NOW/HOUR
+                  ... Round to the start of the current hour
+               NOW-1DAY
+                  ... Exactly 1 day prior to now
+               NOW/DAY+6MONTHS+3DAYS
+                  ... 6 months and 3 days in the future from the start of
+                      the current day
+                      
+         Consult the TrieDateField javadocs for more information.
+
+         Note: For faster range queries, consider the tdate type
+      -->
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+
+    <!-- A Trie based date field for faster date range queries and date faceting. -->
+    <fieldType name="tdate" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+
+    <!--Binary data type. The data should be sent/retrieved in as Base64 encoded Strings -->
+    <fieldType name="binary" class="solr.BinaryField"/>
+
+
+    <!-- solr.TextField allows the specification of custom text analyzers
+         specified as a tokenizer and a list of token filters. Different
+         analyzers may be specified for indexing and querying.
+
+         The optional positionIncrementGap puts space between multiple fields of
+         this type on the same document, with the purpose of preventing false phrase
+         matching across fields.
+
+         For more info on customizing your analyzer chain, please see
+         http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters
+     -->
+
+    <!-- One can also specify an existing Analyzer class that has a
+         default constructor via the class attribute on the analyzer element.
+         Example:
+    <fieldType name="text_greek" class="solr.TextField">
+      <analyzer class="org.apache.lucene.analysis.el.GreekAnalyzer"/>
+    </fieldType>
+    -->
+
+    
+    <fieldType name="phonetic" stored="false" indexed="true" class="solr.TextField" >
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.DoubleMetaphoneFilterFactory" inject="false"/>
+      </analyzer>
+    </fieldType>
+
+
+
+
+    
+    <!-- German -->
+    <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
+      <analyzer> 
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_de.txt" format="snowball" />
+        <filter class="solr.GermanNormalizationFilterFactory"/>
+        <filter class="solr.GermanLightStemFilterFactory"/>
+        <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
+        <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="German2"/> -->
+      </analyzer>
+    </fieldType>
+    
+
+    
+    
+
+    <!-- Russian -->
+    <fieldType name="text_ru" class="solr.TextField" positionIncrementGap="100">
+      <analyzer> 
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ru.txt" format="snowball" />
+        <filter class="solr.SnowballPorterFilterFactory" language="Russian"/>
+        <!-- less aggressive: <filter class="solr.RussianLightStemFilterFactory"/> -->
+      </analyzer>
+    </fieldType>
+    
+</schema>

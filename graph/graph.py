@@ -36,9 +36,9 @@ def heatmap(minimum, maximum, value):
   return toHex((r, g, b))
 
 # Make sure we have the correct command line arguments
-if len(argv) != 2:
+if len(argv) != 3:
   print "Please provide command line arguments as follows:"
-  print "python graph.py <JSON Query Results>"
+  print "python graph.py <JSON Query Results> <JSON Graph Output>"
   exit(0)
 
 if isfile(argv[1]):
@@ -135,5 +135,5 @@ for node in nodes:
   node[Y] = xy[1]
   node[COLOR] = heatmap(minsize, top, int(node[SIZE]))
 
-with open('graph.json', 'w') as output:
+with open(argv[2], 'w') as output:
   output.write(dumps({NODES : nodes, EDGES : edges}))

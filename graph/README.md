@@ -2,7 +2,7 @@
 
 In order to run:
 ```
-python graph.py <JSON Query Results>
+python graph.py <JSON Query Results> <JSON Graph Output>
 ```
 
 At minimum the JSON Query Result needs to have a structure akin to the following example:

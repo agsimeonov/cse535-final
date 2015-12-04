@@ -12,6 +12,7 @@ TRENDING = 'trending.html'
 JGRAPH   = 'graph.json'
 DEFAULT  = 'default.html'
 INPUT    = 'input.json'
+PARSER   = 'sigma.parsers.json.js'
 
 def masterRunner(data):
   with open(INPUT, 'w') as inputData:
@@ -42,6 +43,8 @@ class Server(BaseHTTPRequestHandler):
       output = open(LANG, 'r')
     elif TRENDING in self.path:
       output = open(TRENDING, 'r')
+    elif PARSER in self.path:
+      output = open(PARSER, 'r')
     else:
       output = open(DEFAULT, 'r')
     self.wfile.write(output.read())

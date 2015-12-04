@@ -1,17 +1,32 @@
+Important :-
+1. For highlighting
+hl=true
+
+2. for date faceting 
+facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+during next query add :-
+tweet_created_at:[2015-09-29T00:00:00Z TO 2015-09-29T23:59:99.999Z]
+
+
 ********** Local Host Commands ************
-curl 'http://localhost:8983/solr/UntitledSolr/update?commit=true' --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
+curl 'http://localhost:8984/solr/UntitledSolr/update?commit=true' --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
 
 bin/solr stop -all
 
-bin/solr start -s UntitledSolr/solr
+bin/solr start -s UntitledSolr/solr -p 8984
 
-curl 'http://localhost:8983/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_en_2015-11-20.json) -H 'Content-type:application'
+curl 'http://localhost:8984/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_en_2015-11-20.json) -H 'Content-type:application'
+curl 'http://localhost:8984/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_ru_2015-11-20.json) -H 'Content-type:application'
+curl 'http://localhost:8984/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_de_2015-11-20.json) -H 'Content-type:application'
+curl 'http://localhost:8984/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_fr_2015-11-20.json) -H 'Content-type:application'
+curl 'http://localhost:8984/solr/UntitledSolr/update/json?commit=true' --data-binary @$(echo UntitledSolr/extracted_tweet_data/tweet_ar_2015-11-20.json) -H 'Content-type:application'
 
 
-http://localhost:8983/solr/UntitledSolr/untitledSearchEn?q=*:*&rows=1&wt=json&indent=true&debugQuery=true
+http://localhost:8984/solr/UntitledSolr/untitledSearch?q=*:*&rows=1&wt=json&indent=true&debugQuery=true
 
 
-http://localhost:8983/solr/UntitledSolr/untitledSearchEn?q=""Parris got severe pain""&df=tweet_text_en, tweet_text_exact_en,tweet_text_ru,tweet_text_exact_ru,tweet_text_de, tweet_text_exact_de,tweet_text_fr, tweet_text_exact_fr,tweet_text_ar,tweet_text_exact_ar&fl=tweet_id,tweet_text_en,tweet_text_ru,tweet_text_de,tweet_text_fr,tweet_text_ar%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+http://localhost:8984/solr/UntitledSolr/untitledSearch?q="Russia attacked Syria"&df=tweet_text_en,tweet_text_ru,tweet_text_de,tweet_text_fr, tweet_text_ar&fl=*%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&mm=100%26&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
 
 
 http://localhost:8983/solr/UntitledSolr/untitledSearchRu?q="Пэррис получил тяжелый приступ"&df=tweet_text_ru,%20tweet_text_exact_ru&fl=tweet_id,tweet_text_ru%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
@@ -29,6 +44,26 @@ http://localhost:8983/solr/UntitledSolr/untitledSearchAr?q="حصلت باريس 
 
 ********** Koding Commands ************
 
+cd solr
+cd solr-5.3.0
+cd UntitledSolr
+python index_cloud.py
+
+
+Its a script that will delete and reindex data one a single click every time and at the end will display the result about how many files have been indexed
+
+
+Ideally the number should be 94729 and its achieved every time.
+
+
+http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/untitledSearch?q=""Parris got severe pain""&df=tweet_text_en, tweet_text_exact_en,tweet_text_ru,tweet_text_exact_ru,tweet_text_de, tweet_text_exact_de,tweet_text_fr, tweet_text_exact_fr,tweet_text_ar,tweet_text_exact_ar&fl=tweet_id,tweet_text_en,tweet_text_ru,tweet_text_de,tweet_text_fr,tweet_text_ar%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/untitledSearch?q=""Parris got severe pain""&df=tweet_text_en, tweet_text_exact_en,tweet_text_ru,tweet_text_exact_ru,tweet_text_de, tweet_text_exact_de,tweet_text_fr, tweet_text_exact_fr,tweet_text_ar,tweet_text_exact_ar&fl=*2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
+http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/untitledSearch?q="Russia attacked Syria with missiles"&df=tweet_text_en, tweet_text_exact_en,tweet_text_ru,tweet_text_exact_ru,tweet_text_de, tweet_text_exact_de,tweet_text_fr, tweet_text_exact_fr,tweet_text_ar,tweet_text_exact_ar&fl=*%2Cscore&wt=json&indent=true&debugQuery=true&rows=10&facet=true&facet.range=tweet_created_at&facet.range.start=NOW/DAY-90DAYS&facet.range.end=NOW/DAY&facet.range.gap=%2B1DAY&facet.range.hardend=true
+
+
 curl 'http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/update?commit=true' --data '<delete><query>*:*</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
 
 ~/solr/solr-5.3.0/bin/solr stop -all  
@@ -43,6 +78,7 @@ http://ramanpreet1990.koding.io:8983/solr/EuropeonRefugee/select?q="Russia inter
 
 
 ********** FACETING ************
+facet.sort=count
 
 http://localhost:8983/solr/EuropeonRefugee/untitledSearchEn?q="en"&df=text_en,created_at,lang&fl=id,text_en,created_at,lang%2Cscore&wt=json&facet=true&&facet.limit=-1&facet.field=lang&indent=true&&debugQuery=true&rows=10
 
@@ -82,6 +118,26 @@ All libs in :-
 
 
 
+
+********** GIT Commands **************
+
+git status --> feature/raman
+
+git add/rm <files>
+git commit -m "adfsdag"
+git push origin feature/raman
+
+
+git checkout master
+git pull origin master
+git checkout feature/raman
+git rebase master
+//conflict resolve if any
+git push -fu origin feature/raman
+
+git checkout master
+git merge feature/raman
+git push -u origin master
 
 
 

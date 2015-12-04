@@ -131,7 +131,11 @@
     <!-- *** Tweet Specific details *** -->   
     <field name="tweet_id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
 
-    <uniqueKey>tweet_id</uniqueKey>
+   <uniqueKey>tweet_id</uniqueKey>
+
+
+   <field name="signatureField" type="string" stored="true" indexed="true" multiValued="false" />
+   <!--<uniqueKey>signatureField</uniqueKey>--> 
 
     <field name="tweet_created_at" type="tdate" indexed="true" stored="true" docValues="true"/>
     
@@ -207,90 +211,56 @@
 
     <!-- English -->
     <fieldType name="tweet_text_en" class="solr.TextField" positionIncrementGap="100">
-        <analyzer type="index">
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <analyzer>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
             <filter class="solr.TrimFilterFactory"/>
             <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.LengthFilterFactory" min="3" max="100" />
             <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
-	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
+	            generateWordParts="1" stemEnglishPossessive="1" generateNumberParts="1"
+	            catenateWords="1" catenateNumbers="0" catenateAll="1" preserveOriginal="1"/>
            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-       </analyzer>
-
-        <analyzer type="query">
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-	    <filter class="solr.TrimFilterFactory"/>
-	    <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
         </analyzer>
     </fieldType>
 
 
     <!-- Russian -->
     <fieldType name="tweet_text_ru" class="solr.TextField" positionIncrementGap="100">
-        <analyzer type="index">
+	<analyzer> 
 	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
             <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LengthFilterFactory" min="3" max="100" />
             <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
-	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
-           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        </analyzer>
-      
-        <analyzer type="query">
-	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
         </analyzer>
     </fieldType>
 
 
     <!-- German -->
     <fieldType name="tweet_text_de" class="solr.TextField" positionIncrementGap="100">
-        <analyzer type="index">
-	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
-	    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <analyzer> 
+            <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
             <filter class="solr.TrimFilterFactory"/>
+            <filter class="solr.LengthFilterFactory" min="3" max="100" />
             <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
-	    <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15"/>	
-           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        </analyzer>
-      
-        <analyzer type="query">
-	    <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
-	    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.WordDelimiterFilterFactory" splitOnCaseChange="1" splitOnNumerics="0" 
-	            generateWordParts="1" stemEnglishPossessive="0" generateNumberParts="1"
-	            catenateWords="1" catenateNumbers="0" catenateAll="0" preserveOriginal="1"/>
-        </analyzer>
-    </fieldType>
+            <filter class="solr.GermanNormalizationFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+       </analyzer>
+   </fieldType>
 
      <!-- French -->
     <fieldType name="tweet_text_fr" class="solr.TextField" positionIncrementGap="100">
       <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- removes l', etc -->
-        <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_fr.txt" format="snowball" />
-        <filter class="solr.FrenchLightStemFilterFactory"/>
-        <!-- less aggressive: <filter class="solr.FrenchMinimalStemFilterFactory"/> -->
-        <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="French"/> -->
+          <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+          <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+          <filter class="solr.LengthFilterFactory" min="3" max="100" />
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_fr.txt" format="snowball" />
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
     </fieldType>
 
@@ -298,73 +268,19 @@
     <!-- Arabic -->
     <fieldType name="tweet_text_ar" class="solr.TextField" positionIncrementGap="100">
       <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- for any non-arabic -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ar.txt" />
-        <!-- normalizes ﻯ to ﻱ, etc -->
-        <filter class="solr.ArabicNormalizationFilterFactory"/>
-        <filter class="solr.ArabicStemFilterFactory"/>
+          <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt" />
+          <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
+          <filter class="solr.LengthFilterFactory" min="3" max="100" />
+          <!-- for any non-arabic -->
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ar.txt" />
+          <!-- normalizes ﻯ to ﻱ, etc -->
+          <filter class="solr.ArabicNormalizationFilterFactory"/>
+          <filter class="solr.ArabicStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
     </fieldType>
 
-
-    <!--   ********************* X X X *****************************  -->
-
-    <field name="tweet_text_exact_en" type="tweet_text_exact_en" indexed="true" stored="false"/>
-    <field name="tweet_text_exact_ru" type="tweet_text_exact_ru" indexed="true" stored="false"/>
-    <field name="tweet_text_exact_de" type="tweet_text_exact_de" indexed="true" stored="false"/>
-    <field name="tweet_text_exact_fr" type="tweet_text_exact_fr" indexed="true" stored="false"/>
-    <field name="tweet_text_exact_ar" type="tweet_text_exact_ar" indexed="true" stored="false"/>
-
-    <copyField source="tweet_text_en" dest="tweet_text_exact_en"/>
-    <copyField source="tweet_text_de" dest="tweet_text_exact_de"/>
-    <copyField source="tweet_text_ru" dest="tweet_text_exact_ru"/>
-    <copyField source="tweet_text_fr" dest="tweet_text_exact_fr"/>
-    <copyField source="tweet_text_ar" dest="tweet_text_exact_ar"/>
- 
-   <!-- Exact English text-->
-    <fieldType name="tweet_text_exact_en" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
-         <analyzer>
-            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-        </analyzer>
-    </fieldType>
-
-    
-    <!-- Exact Russian text-->
-    <fieldType name="tweet_text_exact_ru" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
-         <analyzer>
-            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-        </analyzer>
-    </fieldType>
-    
-    
-    <!-- Exact German text -->
-    <fieldType name="tweet_text_exact_de" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
-         <analyzer>
-            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-        </analyzer>
-    </fieldType>
-
-    
-    <!-- Exact French text -->
-    <fieldType name="tweet_text_exact_fr" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
-         <analyzer>
-            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-        </analyzer>
-    </fieldType>
-    
-    <!-- Exact Arabic text -->
-    <fieldType name="tweet_text_exact_ar" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
-         <analyzer>
-            <tokenizer class="solr.UAX29URLEmailTokenizerFactory"/>
-            <filter class="solr.TrimFilterFactory"/>
-        </analyzer>
-    </fieldType>
 
     <!--   ********************* X X X *****************************  -->
 
@@ -478,37 +394,4 @@
         <filter class="solr.DoubleMetaphoneFilterFactory" inject="false"/>
       </analyzer>
     </fieldType>
-
-
-
-
-    
-    <!-- German -->
-    <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
-      <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_de.txt" format="snowball" />
-        <filter class="solr.GermanNormalizationFilterFactory"/>
-        <filter class="solr.GermanLightStemFilterFactory"/>
-        <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
-        <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="German2"/> -->
-      </analyzer>
-    </fieldType>
-    
-
-    
-    
-
-    <!-- Russian -->
-    <fieldType name="text_ru" class="solr.TextField" positionIncrementGap="100">
-      <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ru.txt" format="snowball" />
-        <filter class="solr.SnowballPorterFilterFactory" language="Russian"/>
-        <!-- less aggressive: <filter class="solr.RussianLightStemFilterFactory"/> -->
-      </analyzer>
-    </fieldType>
-    
 </schema>

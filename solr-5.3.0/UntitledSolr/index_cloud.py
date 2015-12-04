@@ -12,7 +12,7 @@ os.system(cmd_3)
 os.system(cmd_1)
 
 
-status, text = getstatusoutput('ls solr-5.3.0/UntitledSolr/extracted_tweet_data/*.json')
+status, text = getstatusoutput('ls ~/solr/solr-5.3.0/UntitledSolr/extracted_tweet_data/*.json')
 file_names=text.split("\n")
 
 for each_file in file_names:

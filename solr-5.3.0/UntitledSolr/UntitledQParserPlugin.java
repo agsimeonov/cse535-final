@@ -23,10 +23,17 @@ import twitter4j.JSONObject;
 
 public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 	public static final String NAME = "UntitledQParserPlugin";
-	private static final String[] CUSTOM_QF = { "tweet_text_en", "tweet_text_exact_en", "tweet_text_ru",
-			"tweet_text_exact_ru", "tweet_text_de", "tweet_text_exact_de", "tweet_text_fr", "tweet_text_exact_fr",
-			"tweet_text_ar", "tweet_text_exact_ar", "tweet_hashtags", "tweet_favorite_count", "tweet_retweet_count",
-			"user_followers_count", "user_listed_count" };
+	private static final String[] CUSTOM_QF_PF = { "tweet_text_en", "tweet_text_ru", "tweet_text_de", "tweet_text_fr",
+			"tweet_text_ar", "tweet_hashtags", "tweet_favorite_count", "tweet_retweet_count", "user_followers_count",
+			"user_listed_count" };
+
+	private static final String[] CUSTOM_QF_PF2 = { "tweet_text_en", "tweet_text_ru", "tweet_text_de", "tweet_text_fr",
+			"tweet_text_ar", "tweet_hashtags", "tweet_favorite_count", "tweet_retweet_count", "user_followers_count",
+			"user_listed_count" };
+
+	private static final String[] CUSTOM_QF_PF3 = { "tweet_text_en", "tweet_text_ru", "tweet_text_de", "tweet_text_fr",
+			"tweet_text_ar", "tweet_hashtags", "tweet_favorite_count", "tweet_retweet_count", "user_followers_count",
+			"user_listed_count" };
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
@@ -53,20 +60,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 				translated_fr = "", translated_ar = "";
 
 		if (queryLang.contains("en")) {
-			CUSTOM_QF[0] = "tweet_text_en^4.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^6.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^6.5";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^3.0";
+			CUSTOM_QF_PF[2] = "tweet_text_de^3.0";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^3.0";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^3.0";
 
-			CUSTOM_QF[2] = "tweet_text_ru^2.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^3.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^1.0";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^1.0";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^1.0";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^1.0";
 
-			CUSTOM_QF[4] = "tweet_text_de^2.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^3.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^2.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^3.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^2.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^3.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^4.0";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^2.5";
 
 			try {
 				translated_ru = Translate.execute(originalQuery, Language.ENGLISH, Language.RUSSIAN);
@@ -82,20 +92,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 					+ translated_fr + "\"\"" + " OR tweet_text_ar:\"\"" + translated_ar + "\"\"";
 
 		} else if (queryLang.contains("ru")) {
-			CUSTOM_QF[0] = "tweet_text_en^2.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^3.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^3.0";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^6.5";
+			CUSTOM_QF_PF[2] = "tweet_text_de^3.0";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^3.0";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^3.0";
 
-			CUSTOM_QF[2] = "tweet_text_ru^4.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^6.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^1.0";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^1.0";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^1.0";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^1.0";
 
-			CUSTOM_QF[4] = "tweet_text_de^2.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^3.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^2.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^3.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^2.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^3.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^4.0";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^2.5";
 
 			try {
 				translated_de = Translate.execute(originalQuery, Language.RUSSIAN, Language.GERMAN);
@@ -111,20 +124,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 					+ translated_ar + "\"\"" + " OR tweet_text_en:\"\"" + translated_en + "\"\"";
 
 		} else if (queryLang.contains("de")) {
-			CUSTOM_QF[0] = "tweet_text_en^2.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^3.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^3.0";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^3.0";
+			CUSTOM_QF_PF[2] = "tweet_text_de^6.5";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^3.0";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^3.0";
 
-			CUSTOM_QF[2] = "tweet_text_ru^2.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^3.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^1.0";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^1.0";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^1.0";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^1.0";
 
-			CUSTOM_QF[4] = "tweet_text_de^4.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^6.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^2.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^3.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^2.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^3.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^4.0";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^2.5";
 
 			try {
 				translated_fr = Translate.execute(originalQuery, Language.GERMAN, Language.FRENCH);
@@ -140,20 +156,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 					+ translated_en + "\"\"" + " OR tweet_text_ru:\"\"" + translated_ru + "\"\"";
 
 		} else if (queryLang.contains("fr")) {
-			CUSTOM_QF[0] = "tweet_text_en^2.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^3.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^3.0";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^3.0";
+			CUSTOM_QF_PF[2] = "tweet_text_de^3.0";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^6.5";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^3.0";
 
-			CUSTOM_QF[2] = "tweet_text_ru^2.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^3.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^1.0";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^1.0";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^1.0";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^1.0";
 
-			CUSTOM_QF[4] = "tweet_text_de^2.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^3.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^4.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^6.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^2.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^3.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^4.0";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^2.5";
 
 			try {
 				translated_ar = Translate.execute(originalQuery, Language.FRENCH, Language.ARABIC);
@@ -169,20 +188,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 					+ translated_ru + "\"\"" + " OR tweet_text_de:\"\"" + translated_de + "\"\"";
 
 		} else if (queryLang.contains("ar")) {
-			CUSTOM_QF[0] = "tweet_text_en^2.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^3.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^3.0";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^3.0";
+			CUSTOM_QF_PF[2] = "tweet_text_de^3.0";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^3.0";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^6.5";
 
-			CUSTOM_QF[2] = "tweet_text_ru^2.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^3.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^1.0";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^1.0";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^1.0";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^1.0";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^2.5";
 
-			CUSTOM_QF[4] = "tweet_text_de^2.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^3.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^2.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^3.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^4.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^6.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^4.0";
 
 			try {
 				translated_en = Translate.execute(originalQuery, Language.ARABIC, Language.ENGLISH);
@@ -198,20 +220,23 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 					+ translated_de + "\"\"" + " OR tweet_text_fr:\"\"" + translated_fr + "\"\"";
 
 		} else {
-			CUSTOM_QF[0] = "tweet_text_en^2.0";
-			CUSTOM_QF[1] = "tweet_text_exact_en^3.0";
+			CUSTOM_QF_PF[0] = "tweet_text_en^3.0";
+			CUSTOM_QF_PF[1] = "tweet_text_ru^3.0";
+			CUSTOM_QF_PF[2] = "tweet_text_de^3.0";
+			CUSTOM_QF_PF[3] = "tweet_text_fr^3.0";
+			CUSTOM_QF_PF[4] = "tweet_text_ar^3.0";
 
-			CUSTOM_QF[2] = "tweet_text_ru^2.0";
-			CUSTOM_QF[3] = "tweet_text_exact_ru^3.0";
+			CUSTOM_QF_PF2[0] = "tweet_text_en^1.0";
+			CUSTOM_QF_PF2[1] = "tweet_text_ru^1.0";
+			CUSTOM_QF_PF2[2] = "tweet_text_de^1.0";
+			CUSTOM_QF_PF2[3] = "tweet_text_fr^1.0";
+			CUSTOM_QF_PF2[4] = "tweet_text_ar^1.0";
 
-			CUSTOM_QF[4] = "tweet_text_de^2.0";
-			CUSTOM_QF[5] = "tweet_text_exact_de^3.0";
-
-			CUSTOM_QF[6] = "tweet_text_fr^2.0";
-			CUSTOM_QF[7] = "tweet_text_exact_fr^3.0";
-
-			CUSTOM_QF[8] = "tweet_text_ar^2.0";
-			CUSTOM_QF[9] = "tweet_text_exact_ar^3.0";
+			CUSTOM_QF_PF3[0] = "tweet_text_en^2.5";
+			CUSTOM_QF_PF3[1] = "tweet_text_ru^2.5";
+			CUSTOM_QF_PF3[2] = "tweet_text_de^2.5";
+			CUSTOM_QF_PF3[3] = "tweet_text_fr^2.5";
+			CUSTOM_QF_PF3[4] = "tweet_text_ar^2.5";
 
 			try {
 				translated_en = Translate.execute(originalQuery, Language.ENGLISH);
@@ -229,22 +254,35 @@ public class UntitledQParserPlugin extends ExtendedDismaxQParserPlugin {
 		}
 
 		if (originalQuery.contains("#")) {
-			CUSTOM_QF[10] = "tweet_hashtags^5.0";
+			CUSTOM_QF_PF[5] = "tweet_hashtags^3.0";
+			CUSTOM_QF_PF2[5] = "tweet_hashtags^1.5";
+			CUSTOM_QF_PF3[5] = "tweet_hashtags^2.0";
 		} else {
-			CUSTOM_QF[10] = "tweet_hashtags^1";
+			CUSTOM_QF_PF[5] = "tweet_hashtags^1";
+			CUSTOM_QF_PF2[5] = "tweet_hashtags^1";
+			CUSTOM_QF_PF3[5] = "tweet_hashtags^1";
 		}
 
-		CUSTOM_QF[11] = "tweet_favorite_count^5.0";
-		CUSTOM_QF[12] = "tweet_retweet_count^5.0";
-		CUSTOM_QF[13] = "user_followers_count^5.0";
-		CUSTOM_QF[14] = "user_listed_count^4.0";
+		CUSTOM_QF_PF[6] = "tweet_favorite_count^3.0";
+		CUSTOM_QF_PF[7] = "tweet_retweet_count^3.0";
+		CUSTOM_QF_PF[8] = "user_followers_count^3.0";
+		CUSTOM_QF_PF[9] = "user_listed_count^2.5";
 
-		customParams.add(DisMaxParams.QF, CUSTOM_QF);
-		customParams.add(DisMaxParams.PF, CUSTOM_QF);
-		customParams.add(DisMaxParams.PF2, CUSTOM_QF);
-		customParams.add(DisMaxParams.PF3, CUSTOM_QF);
-		customParams.add(DisMaxParams.MM, "2<1 8<2");
-		
+		CUSTOM_QF_PF2[6] = "tweet_favorite_count^1.0";
+		CUSTOM_QF_PF2[7] = "tweet_retweet_count^1.0";
+		CUSTOM_QF_PF2[8] = "user_followers_count^1.0";
+		CUSTOM_QF_PF2[9] = "user_listed_count^1.0";
+
+		CUSTOM_QF_PF3[6] = "tweet_favorite_count^2.5";
+		CUSTOM_QF_PF3[7] = "tweet_retweet_count^2.5";
+		CUSTOM_QF_PF3[8] = "user_followers_count^2.5";
+		CUSTOM_QF_PF3[9] = "user_listed_count^2.0";
+
+		customParams.add(DisMaxParams.QF, CUSTOM_QF_PF);
+		customParams.add(DisMaxParams.PF, CUSTOM_QF_PF);
+		customParams.add(DisMaxParams.PF2, CUSTOM_QF_PF2);
+		customParams.add(DisMaxParams.PF3, CUSTOM_QF_PF3);
+
 		params = SolrParams.wrapAppended(params, customParams);
 		return new ExtendedDismaxQParser(finalQuery, localParams, params, req);
 	}

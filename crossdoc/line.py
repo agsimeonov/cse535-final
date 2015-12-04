@@ -3,7 +3,7 @@ from json import loads
 from os.path import isfile, splitext
 from sys import argv, exit
 
-from highcharts.highcharts.highcharts import Highchart
+from highcharts import Highchart
 
 
 DOCS       = 'docs'

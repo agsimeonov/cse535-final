@@ -4,7 +4,7 @@ from subprocess import call
 from threading import Thread
 
 
-PORT     = 8000
+PORT     = 9886
 HGRAPH   = 'graph.html'
 COUNTRY  = 'country.html'
 LANG     = 'lang.html'

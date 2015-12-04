@@ -1,3 +1,4 @@
+from colorsys import hsv_to_rgb
 from itertools import combinations, product
 from json import dumps, loads
 from os.path import isfile
@@ -15,11 +16,29 @@ SOURCE   = 'source'
 TARGET   = 'target'
 NODES    = 'nodes'
 EDGES    = 'edges'
+COLOR    = 'color'
+X        = 'x'
+Y        = 'y'
+MINSIZE  = 50
+
+def toHex(rgb):
+  return '#%02x%02x%02x' % rgb
+
+# Heat map red (lowest) to blue (highest)
+def heatmap(minimum, maximum, value):
+  if (minimum == maximum):
+    maximum = maximum + 1
+  hsv = (float(value-minimum) / (maximum-minimum)) * 240
+  r, g, b = hsv_to_rgb(hsv/360, 1, 1)
+  r = int(r*255)
+  g = int(g*255)
+  b = int(b*255)
+  return toHex((r, g, b))
 
 # Make sure we have the correct command line arguments
 if len(argv) != 3:
   print "Please provide command line arguments as follows:"
-  print "python graph.py <JSON Query Results> <Graph JSON File>"
+  print "python graph.py <JSON Query Results> <JSON Graph Output>"
   exit(0)
 
 if isfile(argv[1]):
@@ -40,6 +59,8 @@ else:
 
 nodes = {}
 edgeSet = set([])
+counter = {}
+top = 0
 
 for doc in docs:
   if not HASHTAGS in doc:
@@ -51,6 +72,32 @@ for doc in docs:
     continue
   
   for hashtag in hashtags:
+    if hashtag in counter:
+      counter[hashtag] +=1
+    else:
+      counter[hashtag] = 1
+
+    if counter[hashtag] > top:
+      top = counter[hashtag]
+
+if top < MINSIZE:
+  minsize = top
+else:
+  minsize = MINSIZE
+
+for doc in docs:
+  if not HASHTAGS in doc:
+    continue
+  
+  hashtags = sorted(doc[HASHTAGS])
+  
+  if not hashtags:
+    continue
+  
+  for hashtag in hashtags:
+    if counter[hashtag] < minsize:
+      continue
+
     if hashtag in nodes:
       nodes[hashtag][SIZE] += 1
     else:
@@ -61,6 +108,8 @@ for doc in docs:
       nodes[hashtag] = node
   
   for item in combinations(hashtags, 2):
+    if counter[item[0]] < minsize or counter[item[1]] < minsize:
+      continue
     edgeSet.add(item)
 
 nodes = [item[1] for item in nodes.items()]
@@ -82,9 +131,9 @@ shuffle(coordinates)
 
 for node in nodes:
   xy = coordinates.pop()
-  node['x'] = xy[0]
-  node['y'] = xy[1]
- 
+  node[X] = xy[0]
+  node[Y] = xy[1]
+  node[COLOR] = heatmap(minsize, top, int(node[SIZE]))
+
 with open(argv[2], 'w') as output:
   output.write(dumps({NODES : nodes, EDGES : edges}))
-  

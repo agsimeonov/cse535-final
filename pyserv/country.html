@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+ 
+
+
+
+
+            Highcharts.setOptions({"lang": {}, "global": {}});
+            var option = {"loading": {}, "subtitle": {}, "xAxis": {}, "title": {"text": "Results per Country"}, "series": {}, "labels": {}, "yAxis": {}, "chart": {"renderTo": "container"}, "tooltip": {}, "plotOptions": {}, "credits": {"enabled": false}, "colors": {}, "pane": {}, "exporting": {}, "drilldown": {}, "navigation": {}, "legend": {}};
+
+
+            var data = [{"data": [["Canada", 72], ["\u0421\u0438\u043c\u0444\u0435\u0440\u043e\u043f\u043e\u043b\u044c\u0441\u043a\u0438\u0439 \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u0441\u043e\u0432\u0435\u0442", 1], ["Montenegro", 1], ["Lithuania", 3], ["Palestine", 2], ["Argentina", 4], ["Bahrain", 1], ["Saudi Arabia", 8], ["Slovenia", 1], ["Bosnia and Herzegovina", 2], ["Russian Federation", 777], ["Germany", 44], ["Spain", 18], ["Pakistan", 3], ["Oman", 1], ["Tanzania", 3], ["New Zealand", 1], ["Yemen", 2], ["Jersey", 1], ["Jamaica", 1], ["United Arab Emirates", 3], ["India", 18], ["Azerbaijan", 3], ["South Korea", 7], ["Turkey", 24], ["Falkland Islands", 1], ["Czech Republic", 2], ["Lebanon", 2], ["Mongolia", 1], ["France", 55], ["Slovakia", 2], ["Somalia", 1], ["Laos", 6], ["Norway", 17], ["Cook Islands", 1], ["Benin", 1], ["Singapore", 2], ["United States of America", 383], ["China", 10], ["Armenia", 1], ["Ukraine", 64], ["The Netherlands", 63], ["Indonesia", 4], ["Finland", 4], ["North America", 2], ["Sweden", 6], ["Belarus", 11], ["Bulgaria", 5], ["Romania", 1], ["Portugal", 2], ["Malaysia", 5], ["Austria", 16], ["Vietnam", 1], ["Uganda", 2], ["Japan", 21], ["Brazil", 11], ["Afghanistan", 1], ["Kuwait", 1], ["Ireland", 13], ["Nigeria", 19], ["Europe", 22], ["Australia", 35], ["Iran", 8], ["Chile", 6], ["Belgium", 10], ["Thailand", 5], ["Iraq", 3], ["Sierra Leone", 1], ["Georgia", 4], ["Denmark", 3], ["Philippines", 7], ["Morocco", 1], ["Switzerland", 10], ["Estonia", 2], ["Kosovo", 13], ["Africa", 1], ["Uzbekistan", 3], ["Tunisia", 1], ["Colombia", 4], ["Cyprus", 1], ["Barbados", 1], ["Qatar", 3], ["Republic of China", 1], ["Italy", 26], ["Venezuela", 5], ["Israel", 5], ["Jordan", 2], ["Kazakhstan", 7], ["Poland", 8], ["Kyrgyzstan", 3], ["Sevastopol", 1], ["Macedonia", 2], ["North Korea", 1], ["Trinidad and Tobago", 3], ["Latvia", 4], ["Hungary", 1], ["Syria", 26], ["Honduras", 1], ["Mexico", 6], ["Egypt", 5], ["Cuba", 2], ["Serbia", 6], ["RSA", 4], ["United Kingdom", 176], ["Greece", 5], ["Sri Lanka", 1]], "type": "pie", "name": "Results"}];
+            option.series = data;
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+
+
+
+
+ 
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

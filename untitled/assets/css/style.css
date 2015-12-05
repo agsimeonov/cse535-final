@@ -2251,7 +2251,10 @@ label {
 }
 
 #navigation {
-    border-bottom: 1px solid #000;
+    /*border-bottom: 1px solid #000;*/
+    height: 30px;
+    margin-top: 18px;
+    margin-bottom: 5px;
 }
 
 #pager,
@@ -2265,6 +2268,11 @@ label {
     display: inline;
 }
 
+#pager-header{
+    float: right;
+    margin-right:10px;
+}
+
 #docs {
     padding-top: 1px;
 }
@@ -2272,11 +2280,78 @@ label {
 #docs > div{
     background-color: #FFF;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    padding: 7px;
+    font-size: 20px;
+    /*padding: 7px;*/
 }
 
 #docs > div > h2{
     font-size: 18px;
     padding: 3px;
+    /*font-weight: 700;*/
+}
+
+ul#pager > li {
+    padding: 10px;
+    margin: 6px;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #68dff0;
+    border-color: #48bcb4;
+}
+
+.result{
+    padding: 25px;
+    font-family: sans-serif;
     font-weight: 700;
 }
+
+.res{
+    padding: 12px 12px;
+    margin-right:5px;
+}
+
+.tweetPane{
+    padding-bottom:10px;
+}
+
+.hashTags > span{
+    background-color:#ddd;
+    padding:5px 10px;
+    margin:2px;
+}
+
+.hashTags{
+    padding: 10px;
+}
+
+.retweet{
+    float: right;
+    padding:5px;
+    color: #FF865C;
+}
+
+.retweet > span{
+    padding:5px;
+}
+
+.favCount{
+    float: right;
+    padding:5px;
+    color: #FF865C;
+}
+
+.favCount > span{
+    padding:5px;
+}
+
+.user{
+    float: right;
+    padding:5px;
+    margin-top: -10px;
+    color: #FF865C;
+}
+
+.user > span{
+    padding:5px;
+}
+

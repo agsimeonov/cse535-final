@@ -40,20 +40,20 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
     $(this.target).empty();
     //this.manager.response.grouped.signatureField.groups[0].doclist.docs
     //this.manager.response.response.docs.length
-    for (var i = 0, l = this.manager.response.grouped.signatureField.groups[0].doclist.docs.length; i < l; i++) {
-      //var doc = this.manager.response.response.docs[i];
-      var doc = this.manager.response.grouped.signatureField.groups[0].doclist.docs[i];
-      $(this.target).append(this.template(doc));
+    for (var k=0;k<this.manager.response.grouped.signatureField.groups.length;k++){
+      for (var i = 0, l = this.manager.response.grouped.signatureField.groups[k].doclist.docs.length; i < l; i++) {
+        //var doc = this.manager.response.response.docs[i];
+        var doc = this.manager.response.grouped.signatureField.groups[k].doclist.docs[0];
+        $(this.target).append(this.template(doc));
+        var items = [];
+        items = items.concat(this.facetLinks('organisations', doc.organisations));
+        items = items.concat(this.facetLinks('exchanges', doc.exchanges));
 
-      var items = [];
-      items = items.concat(this.facetLinks('topics', doc.topics));
-      items = items.concat(this.facetLinks('organisations', doc.organisations));
-      items = items.concat(this.facetLinks('exchanges', doc.exchanges));
-
-      var $links = $('#links_' + doc.id);
-      $links.empty();
-      for (var j = 0, m = items.length; j < m; j++) {
-        $links.append($('<li></li>').append(items[j]));
+        var $links = $('#links_' + doc.id);
+        $links.empty();
+        for (var j = 0, m = items.length; j < m; j++) {
+          $links.append($('<li></li>').append(items[j]));
+        }
       }
     }
   },

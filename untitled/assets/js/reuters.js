@@ -6,8 +6,8 @@ var Manager;
     Manager = new AjaxSolr.Manager({
       //solrUrl: 'http://reuters-demo.tree.ewdev.ca:9090/reuters/'
       //solrUrl: 'http://localhost:8983/solr/core_BM25/select?q=*%3A*&wt=json&indent=true'
-      //solrUrl : "http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/"
-      solrUrl: 'http://localhost:8983/solr/UntitledSolr/'
+      solrUrl : "http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/"
+      //solrUrl: 'http://localhost:8983/solr/UntitledSolr/'
       // If you are using a local Solr instance with a "reuters" core, use:
       // solrUrl: 'http://localhost:8983/solr/reuters/'
       // If you are using a local Solr instance with a single core, use:

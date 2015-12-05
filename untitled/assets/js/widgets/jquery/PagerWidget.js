@@ -237,8 +237,7 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
     var perPage = this.perPage();
     var offset  = this.getOffset();
     //var total   = parseInt(this.manager.response.response.numFound);
-    var total   = parseInt(this.manager.response.grouped.signatureField.groups[0].doclist.numFound);
-
+    var total   = parseInt(this.manager.response.grouped.signatureField.matches);
 
     // Normalize the offset to a multiple of perPage.
     offset = offset - offset % perPage;

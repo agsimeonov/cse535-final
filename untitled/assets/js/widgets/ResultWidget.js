@@ -38,8 +38,11 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
 
   afterRequest: function () {
     $(this.target).empty();
-    for (var i = 0, l = this.manager.response.response.docs.length; i < l; i++) {
-      var doc = this.manager.response.response.docs[i];
+    //this.manager.response.grouped.signatureField.groups[0].doclist.docs
+    //this.manager.response.response.docs.length
+    for (var i = 0, l = this.manager.response.grouped.signatureField.groups[0].doclist.docs.length; i < l; i++) {
+      //var doc = this.manager.response.response.docs[i];
+      var doc = this.manager.response.grouped.signatureField.groups[0].doclist.docs[i];
       $(this.target).append(this.template(doc));
 
       var items = [];

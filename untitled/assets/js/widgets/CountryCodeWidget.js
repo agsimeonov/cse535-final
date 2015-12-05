@@ -15,6 +15,29 @@ AjaxSolr.CountryCodeWidget = AjaxSolr.AbstractFacetWidget.extend({
       south_america: 'view South America',
       usa: 'view North America'
     };
+
+    var revLookup = {
+      "Australia": "AU",
+      "Austria": "AT",
+      "Belgium": "BE",
+      "Canada": "CA",
+      "Egypt": "EG",
+      "Europe": "EU",
+      "France": "FR",
+      "Germany": "DE",
+      "Italy": "IT",
+      "Kuwait": "KW",
+      "Nigeria": "NG",
+      "Russian Federation": "RU",
+      "Saudi Arabia": "SA",
+      "Spain": "ES",
+      "Switzerland": "CH",
+      "Syria": "SY",
+      "The Netherlands": "NL",
+      "Ukraine" : "UA",
+      "United Kingdom" : "UK",
+      "United States of America":"US"};
+
     $(this.target).append(this.template('region', maps));
 
     $(this.target).find('#region').change(function () {
@@ -25,7 +48,7 @@ AjaxSolr.CountryCodeWidget = AjaxSolr.AbstractFacetWidget.extend({
     var maxCount = 0;
     var options = { '': '--select--' };
     for (var facet in this.manager.response.facet_counts.facet_fields[this.field]) {
-      if (facet.length == 2) { // only display country codes
+      if (facet in revLookup && revLookup[facet].length == 2) { // only display country codes
         var count = this.manager.response.facet_counts.facet_fields[this.field][facet];
         if (count > maxCount) {
           maxCount = count;
@@ -45,7 +68,7 @@ AjaxSolr.CountryCodeWidget = AjaxSolr.AbstractFacetWidget.extend({
     var chd = [];
     var chld = '';
     for (var facet in this.manager.response.facet_counts.facet_fields[this.field]) {
-      if (facet.length == 2) { // only display country codes
+      if (facet in revLookup && revLookup[facet].length == 2) { // only display country codes
         chd.push(parseInt(this.manager.response.facet_counts.facet_fields[this.field][facet] / maxCount * 100) + '.0');
         chld += facet;
       }
@@ -61,7 +84,7 @@ AjaxSolr.CountryCodeWidget = AjaxSolr.AbstractFacetWidget.extend({
     for (var value in container) {
       options.push('<option value="' + value +'">' + container[value] + '</option>');
     }
-    return '<select id="' + name + '" name="' + name + '">' + options.join('\n') + '</select>';
+    return '<select class="form-control biView" id="' + name + '" name="' + name + '">' + options.join('\n') + '</select>';
   }
 });
 

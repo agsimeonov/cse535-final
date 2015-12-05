@@ -140,14 +140,15 @@
                 </p>
                 <h5 class="centered">Untitled</h5>
 
+
                 <li class="sub-menu">
                     <a class="active" href="index.html">
                         <i class="fa fa-search"></i>
                         <span>Search</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="advsearch.html">Advanced</a></li>
-                     </ul>
+                        <li><a class="active" href="advsearch.html">Advanced</a></li>
+                    </ul>
                 </li>
 
                 <!--<li class="mt">-->
@@ -228,20 +229,9 @@
                     <!--</ul>-->
                 <!--</li>-->
 
-                <div class="tags" style="margin-bottom: 40px;">
-                    <h7>Most Popular Languages</h7>
-                    <div class="tagcloud" id="tweet_lang"></div>
-                </div>
-
-                <div  class="tags">
-                    <h7>Most Popular Hashtags</h7>
-                    <div class="tagcloud" id="tweet_hashtags"></div>
-                </div>
-
-                <div class="tags">
-                    <h7>Demographs</h7>
-                    <div class="tagcloud" id="user_location"></div>
-                </div>
+                <div class="tagcloud" id="tweet_lang"></div>
+                <div class="tagcloud" id="tweet_hashtags"></div>
+                <div class="tagcloud" id="user_location"></div>
 
 
             </ul>
@@ -272,9 +262,8 @@
                         <form class="form-inline" role="form">
                             <div class="form-group autoComplete">
                                 <label class="search">Search : </label>
-                                <input class="form-control" type="text" id="searchBox" placeholder="" style="width:600px"/>
-                                <!--<button class="btn btn-theme" onclick="alert($('#searchBox').val())">Go</button>-->
-                                <span id="searchBtn" onclick="Manager.search()">Go</span>
+                                <input class="form-control" type="text" placeholder="" style="width:600px"/>
+                                <button type="submit" class="btn btn-theme">Go</button>
                             </div>
                         </form>
                     </div>
@@ -421,15 +410,9 @@
                 RIGHT SIDEBAR CONTENT
                 *********************************************************************************************************************************************************** -->
 
-
                 <div class="col-lg-3 ds">
-
-                    <!-- Map -->
-                    <div id="countries"></div>
-                    <div id="preview"></div> <!-- Map -->
-
                     <!--COMPLETED ACTIONS DONUTS CHART-->
-                    <h3>NOTIFICATIONS</h3>
+                    <h3>ADVANCED SEARCH</h3>
 
                     <!-- First Action -->
                     <div class="desc">
@@ -571,8 +554,6 @@
                         </div>
                     </div><!-- / calendar -->
 
-
-
                 </div><!-- /col-lg-3 -->
             </div>
             <! --/row -->
@@ -632,35 +613,28 @@
 <script src="assets/js/zabuto_calendar.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Welcome to Untitled!',
-            // (string | mandatory) the text inside the notification
-            text: 'Search Untitled for the latest news that made headlines.<br/>Make untitled your homepage.<p style="margin-top:5px"> \
-                   <button type="submit" class="btn btn-theme">Yes, Sure.</button></p>',
-            // (string | optional) the image to display on the left
-            image: 'assets/img/logo.png',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
-
-        return false;
-    });
+//    $(document).ready(function () {
+//        var unique_id = $.gritter.add({
+//            // (string | mandatory) the heading of the notification
+//            title: 'Welcome to Untitled!',
+//            // (string | mandatory) the text inside the notification
+//            text: 'Search Untitled for the latest news that made headlines.<br/>Make untitled your homepage.<p style="margin-top:5px"> \
+//                   <button type="submit" class="btn btn-theme">Yes, Sure.</button></p>',
+//            // (string | optional) the image to display on the left
+//            image: 'assets/img/logo.png',
+//            // (bool | optional) if you want it to fade out on its own or just sit there
+//            sticky: true,
+//            // (int | optional) the time you want it to be alive for before fading out
+//            time: '',
+//            // (string | optional) the class name you want to apply to that specific message
+//            class_name: 'my-sticky-class'
+//        });
+//
+//        return false;
+//    });
 </script>
 
 <script type="application/javascript">
-    $(document).ready(function () {
-        $("#date-popover").popover({html: true, trigger: "manual"});
-        $("#date-popover").hide();
-        $("#date-popover").click(function (e) {
-            $(this).hide();
-        });
-
         $("#my-calendar").zabuto_calendar({
             action: function () {
                 return myDateFunction(this.id, false);
@@ -676,7 +650,6 @@
                 {type: "text", label: "Special event", badge: "00"},
                 {type: "block", label: "Regular event",}
             ]
-        });
     });
 
 

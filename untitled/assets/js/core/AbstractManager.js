@@ -33,7 +33,7 @@ AjaxSolr.AbstractManager = AjaxSolr.Class.extend(
     AjaxSolr.extend(this, {
       solrUrl: 'http://localhost:8983/solr/',
       proxyUrl: null,
-      servlet: 'select',
+      servlet: 'untitledSearch',
       // The most recent response from Solr.
       response: {},
       // A collection of all registered widgets.

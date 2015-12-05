@@ -15,6 +15,13 @@
 AjaxSolr.Manager = AjaxSolr.AbstractManager.extend(
   /** @lends AjaxSolr.Manager.prototype */
   {
+
+  search: function(){
+      var searchQuery = $('#searchBox').val();
+      Manager.store.addByValue('q',searchQuery);
+      this.doRequest();
+      //$('#searchBox').val(searchQuery);
+  } ,
   executeRequest: function (servlet, string, handler, errorHandler) {
     var self = this,
         options = {dataType: 'jsonp'};

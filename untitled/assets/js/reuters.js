@@ -13,10 +13,14 @@ var Manager;
       // If you are using a local Solr instance with a single core, use:
       // solrUrl: 'http://localhost:8983/solr/'
     });
+
+
+
     Manager.addWidget(new AjaxSolr.ResultWidget({
       id: 'result',
       target: '#docs'
     }));
+
     Manager.addWidget(new AjaxSolr.PagerWidget({
       id: 'pager',
       target: '#pager',

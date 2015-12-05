@@ -26,6 +26,7 @@
     <link href="assets/css/style-responsive.css" rel="stylesheet">
 
     <script src="assets/js/chart-master/Chart.js"></script>
+    <script src="http://rawgit.com/maxlath/wikidata-sdk/master/dist/wikidata-sdk.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -269,14 +270,16 @@
                     <!--</div>-->
 
                     <div class="panel" style="padding:10px">
-                        <form class="form-inline" role="form">
+                        <form class="form-inline" style="display:inline" role="form">
                             <div class="form-group autoComplete">
                                 <label class="search">Search : </label>
                                 <input class="form-control" type="text" id="searchBox" placeholder="" style="width:600px"/>
                                 <!--<button class="btn btn-theme" onclick="alert($('#searchBox').val())">Go</button>-->
                                 <span id="searchBtn" onclick="Manager.search()">Go</span>
+
                             </div>
                         </form>
+                        <div class="form-inline" style="display:inline"><button id="search_submit" class="btn btn-theme">Wiki</button></div>
                     </div>
 
                     <div class="panel" id="result">
@@ -601,7 +604,7 @@
 <script src="assets/js/jquery.scrollTo.min.js"></script>
 <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="assets/js/jquery.sparkline.js"></script>
-
+<script src="http://rawgit.com/maxlath/wikidata-sdk/master/dist/wikidata-sdk.min.js"></script>
 <!--   Solr Spec  Libraries -->
 <script src="assets/js/reuters.js"></script>
 <script src="assets/js/core/Core.js"></script>
@@ -677,6 +680,54 @@
                 {type: "block", label: "Regular event",}
             ]
         });
+        $( "#search_submit" ).click(function() {
+            var search = $('#searchBox').val();
+            var languages = 'fr' // will default to 'en'
+            var limit = 1 // default 20
+            var format = 'json' // default to json
+            var wiki_url = wdk.searchEntities(search, languages, limit, format);    
+            // $.ajax({
+            //     type: "GET",
+            //     url: wiki_url,
+            //     async:false,
+            //     dataType : 'jsonp',   //you may use jsonp for cross origin request
+            //     crossDomain:true,
+            //     success: function(data) {
+            //         alert(data);
+            //         console.log(data);
+            //         console.log("in success")
+            //     },
+            //     error: function() {
+            //         alert("error");
+            //         console.log("error");
+            //     }
+            // });
+            $.ajax({
+                url: wiki_url,
+                dataType : 'jsonp',
+                success: function(data) {
+                    console.log(data.search[0].concepturi);
+                    new_url=data.search[0].concepturi;
+                    console.log(data.search[0].id);
+                    var rev_url = wdk.getEntities(data.search[0].id, languages, properties, format);
+                    console.log(rev_url);
+                    // $.ajax({
+                    //     url: new_url,
+                    //     dataType: 'jsonp',
+                    //     success: function(data) {
+                    //         console.log(data);
+                    //     },
+                    //     error: function() {
+                    //         console.log("error");
+                    //     }
+                    // });
+                },
+                error: function() {
+                    console.log("error");
+                }
+            });
+        });
+        
     });
 
 

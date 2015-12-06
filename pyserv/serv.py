@@ -1,5 +1,6 @@
 from BaseHTTPServer import BaseHTTPRequestHandler
 from SocketServer import TCPServer
+from json import dumps, loads
 from subprocess import call
 from threading import Thread
 
@@ -14,7 +15,45 @@ DEFAULT  = 'default.html'
 INPUT    = 'input.json'
 PARSER   = 'sigma.parsers.json.js'
 
+GROUPED  = 'grouped'
+SIGF     = 'signatureField'
+GROUPS   = 'groups'
+DOCLIST  = 'doclist'
+DOCS     = 'docs'
+RESPONSE = 'response'
+
 def masterRunner(data):
+  data = loads(data)
+  output = []
+  
+  if RESPONSE in data:
+    if DOCS in data[RESPONSE]:
+      data = dumps(data)
+  else: 
+    if not GROUPED in data:
+      return 
+    if not SIGF in data[GROUPED]:
+      return
+    if not GROUPS in data[GROUPED][SIGF]:
+      return
+  
+    for group in data[GROUPED][SIGF][GROUPS]:
+      if not group:
+        continue
+      if not DOCLIST in group:
+        continue
+      if not DOCS in group[DOCLIST]:
+        continue
+      if not group[DOCLIST][DOCS]:
+        continue
+    
+      doc = group[DOCLIST][DOCS][0]
+      if not doc:
+        continue
+      output.append(doc)
+      
+    data = dumps({RESPONSE: {DOCS : output}})
+  
   with open(INPUT, 'w') as inputData:
     inputData.write(data)
 

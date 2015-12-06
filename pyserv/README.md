@@ -18,7 +18,7 @@ This simple Python script server is used in order to run the Python scripts with
 To execute the Python scripts simply pass the JSON data within a POST request.
 Here is an example run:
 ```
-curl -X POST http://localhost:9886 -H “Content-Type: application/json” --data "@../crossdoc/samples/test.json"
+curl -X POST http://localhost:9886 -H “Content-Type: application/json” --data "@test.json"
 ```
 
 The server runs on port 9886. Here are the available pages:

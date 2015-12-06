@@ -24,12 +24,12 @@ RESPONSE = 'response'
 
 def masterRunner(data):
   data = loads(data)
-  output = []
   
-  if RESPONSE in data:
-    if DOCS in data[RESPONSE]:
-      data = dumps(data)
+  if RESPONSE in data and DOCS in data[RESPONSE]:
+    data = dumps(data)
   else: 
+    output = []
+    
     if not GROUPED in data:
       return 
     if not SIGF in data[GROUPED]:

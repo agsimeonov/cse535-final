@@ -1,6 +1,7 @@
 from colorsys import hsv_to_rgb
 from itertools import combinations, product
 from json import dumps, loads
+from operator import itemgetter
 from os.path import isfile
 from random import shuffle
 from sys import argv, exit
@@ -19,7 +20,7 @@ EDGES    = 'edges'
 COLOR    = 'color'
 X        = 'x'
 Y        = 'y'
-MINSIZE  = 50
+MAXNODES = 20
 
 def toHex(rgb):
   return '#%02x%02x%02x' % rgb
@@ -79,11 +80,9 @@ for doc in docs:
 
     if counter[hashtag] > top:
       top = counter[hashtag]
-
-if top < MINSIZE:
-  minsize = top
-else:
-  minsize = MINSIZE
+      
+topCounter = dict(sorted(counter.iteritems(), key=itemgetter(1), reverse=True)[:MAXNODES])
+bottom = min(topCounter.itervalues())
 
 for doc in docs:
   if not HASHTAGS in doc:
@@ -95,7 +94,7 @@ for doc in docs:
     continue
   
   for hashtag in hashtags:
-    if counter[hashtag] < minsize:
+    if hashtag not in topCounter:
       continue
 
     if hashtag in nodes:
@@ -108,7 +107,7 @@ for doc in docs:
       nodes[hashtag] = node
   
   for item in combinations(hashtags, 2):
-    if counter[item[0]] < minsize or counter[item[1]] < minsize:
+    if item[0] not in topCounter or item[1] not in topCounter:
       continue
     edgeSet.add(item)
 
@@ -133,7 +132,7 @@ for node in nodes:
   xy = coordinates.pop()
   node[X] = xy[0]
   node[Y] = xy[1]
-  node[COLOR] = heatmap(minsize, top, int(node[SIZE]))
+  node[COLOR] = heatmap(bottom, top, int(node[SIZE]))
 
 with open(argv[2], 'w') as output:
   output.write(dumps({NODES : nodes, EDGES : edges}))

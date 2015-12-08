@@ -53,19 +53,23 @@ var Manager;
       target: '#countries',
       field: 'user_location'
     }));
-    //Manager.addWidget(new AjaxSolr.CalendarWidget({
-    //  id: 'calendar',
-    //  target: '#calendar',
-    //  field: 'date'
-    //}));
+    Manager.addWidget(new AjaxSolr.CalendarWidget({
+     id: 'calendar',
+     target: '#calendar',
+     field: 'tweet_created_at'
+    }));
     Manager.init();
     Manager.store.addByValue('q', '*:*');
     var params = {
-       'facet': true,
-       'facet.field': [ 'tweet_lang', 'tweet_hashtags', 'user_location' ],
-       'facet.limit': 20,
-       'facet.mincount': 1,
-       'json.nl': 'map'
+      'facet': true,
+      'facet.field': [ 'tweet_lang', 'tweet_hashtags', 'user_location' ],
+      'facet.limit': 20,
+      'facet.mincount': 1,
+      'json.nl': 'map',
+      'facet.range': 'tweet_created_at',
+      'facet.range.start': '2015-11-20T00:00:00.000Z/DAY',
+      'facet.range.end': '2015-11-26T00:00:00.000Z/DAY+1DAY',
+      'facet.range.gap': '+1DAY',
     };
     //var params = {
     //  'facet': true,

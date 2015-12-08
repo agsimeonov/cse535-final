@@ -63,7 +63,7 @@ var Manager;
     var params = {
       'facet': true,
       'facet.field': [ 'tweet_lang', 'tweet_hashtags', 'user_location' ],
-      'facet.limit': 20,
+      'facet.limit': 10,
       'facet.mincount': 1,
       'json.nl': 'map',
       'facet.range': 'tweet_created_at',

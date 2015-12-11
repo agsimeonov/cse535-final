@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+ 
+
+
+
+
+            Highcharts.setOptions({"lang": {}, "global": {}});
+            var option = {"loading": {}, "subtitle": {}, "xAxis": {"categories": ["2015-11-20", "2015-11-21", "2015-11-22", "2015-11-23", "2015-11-24", "2015-11-25", "2015-11-26"]}, "title": {"text": "Top Trending Topics Over Time"}, "series": {}, "labels": {}, "yAxis": {"title": {"text": "Results containing Hashtag"}}, "chart": {"renderTo": "container"}, "tooltip": {}, "plotOptions": {}, "credits": {"enabled": false}, "colors": {}, "pane": {}, "exporting": {}, "drilldown": {}, "navigation": {}, "legend": {}};
+
+
+            var data = [{"data": [83, 109, 120, 138, 574, 407, 503], "type": "line", "name": "Syria"}, {"data": [94, 16, 3, 103, 349, 29, 779], "type": "line", "name": "\u0421\u0418\u0420\u0418\u042f"}, {"data": [137, 24, 27, 134, 150, 67, 396], "type": "line", "name": "\u0418\u0413\u0418\u041b"}, {"data": [63, 74, 109, 78, 464, 253, 393], "type": "line", "name": "Russia"}, {"data": [22, 31, 61, 51, 276, 95, 86], "type": "line", "name": "ISIS"}];
+            option.series = data;
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+
+
+
+
+ 
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

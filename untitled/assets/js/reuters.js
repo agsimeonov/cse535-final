@@ -6,7 +6,7 @@ var Manager;
     Manager = new AjaxSolr.Manager({
       //solrUrl: 'http://reuters-demo.tree.ewdev.ca:9090/reuters/'
       //solrUrl: 'http://localhost:8983/solr/core_BM25/select?q=*%3A*&wt=json&indent=true'
-      solrUrl : "http://ramanpreet1990.koding.io:8983/solr/UntitledSolr/"
+      solrUrl : "http://localhost:8983/solr/UntitledSolr/"
       //solrUrl: 'http://localhost:8983/solr/UntitledSolr/'
       // If you are using a local Solr instance with a "reuters" core, use:
       // solrUrl: 'http://localhost:8983/solr/reuters/'
@@ -63,7 +63,7 @@ var Manager;
     var params = {
       'facet': true,
       'facet.field': [ 'tweet_lang', 'tweet_hashtags', 'user_location' ],
-      'facet.limit': 10,
+      'facet.limit': 20,
       'facet.mincount': 1,
       'json.nl': 'map',
       'facet.range': 'tweet_created_at',

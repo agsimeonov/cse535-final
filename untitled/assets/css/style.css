@@ -809,7 +809,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds .details {
-	width: 170px;
+	width: 270px;
 	float: left;
 }
 
@@ -2308,6 +2308,7 @@ ul#pager > li {
 .res{
     padding: 12px 12px;
     margin-right:5px;
+    cursor: pointer;
 }
 
 .tweetPane{
@@ -2433,3 +2434,28 @@ a.tagcloud_size_10 {
     margin-top: 15px;
     cursor: pointer;
 }
+
+.ui-datepicker{
+    width: 100% !important;
+}
+
+.g-graph{
+    width: 100%;
+    height: 400px;
+}
+
+.g-lang{
+    width: 100%;
+    height: 400px;
+}
+
+.g-ctry{
+    width: 100%;
+    height: 400px;
+}
+
+.g-trend{
+    width: 100%;
+    height: 400px;
+}
+

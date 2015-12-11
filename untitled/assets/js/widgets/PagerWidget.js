@@ -194,9 +194,7 @@ AjaxSolr.PagerWidget = AjaxSolr.AbstractWidget.extend(
    * @param {Number} offset The index in the result set of the first document to render.
    * @param {Number} total The total number of documents in the result set.
    */
-  renderHeader: function (perPage, offset, total) {
-    perPage=10
-  },
+  renderHeader: function (perPage, offset, total) {},
 
   /**
    * Render the pagination links.

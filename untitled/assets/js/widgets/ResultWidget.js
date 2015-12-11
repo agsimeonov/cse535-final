@@ -38,10 +38,17 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
 
   afterRequest: function () {
     $(this.target).empty();
+
+    var data = JSON.stringify(this.manager.response);
+
+    $.post('http://localhost:9886',data,function(data){
+        console.log('successfull');
+    });
+
     //this.manager.response.grouped.signatureField.groups[0].doclist.docs
     //this.manager.response.response.docs.length
     for (var k=0;k<this.manager.response.grouped.signatureField.groups.length;k++){
-      // for (var i = 0, l = this.manager.response.grouped.signatureField.groups[k].doclist.docs.length; i < l; i++) {
+      for (var i = 0, l = this.manager.response.grouped.signatureField.groups[k].doclist.docs.length; i < l; i++) {
         //var doc = this.manager.response.response.docs[i];
         var doc = this.manager.response.grouped.signatureField.groups[k].doclist.docs[0];
         $(this.target).append(this.template(doc));
@@ -54,7 +61,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
         for (var j = 0, m = items.length; j < m; j++) {
           $links.append($('<li></li>').append(items[j]));
         }
-      // }
+      }
     }
   },
 
@@ -103,6 +110,13 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
     favCount += '<span class="fa fa-heart"></span><span>'+ doc.tweet_favorite_count +'</span>';
     favCount += '</span>';
     /* FAVOURITE COUNT */
+
+
+    //var userPic = "<?php $url = 'https://api.twitter.com/1.1/users/lookup.json';";
+    //userPic += "$getfield = '?screen_name="+ doc.user_screen_name + "';$requestMethod = 'GET';$twitter = new TwitterAPIExchange($settings);";
+    //userPic += "$json = json_decode($twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)->performRequest());";
+    //userPic += "echo $json[0]['profile_image_url'] ?>"
+
 
     /* USER */
     var user = '<span class="user">';

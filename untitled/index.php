@@ -439,7 +439,7 @@ if(isset($_SESSION['status']) && $_SESSION['status']=='verified')
                 RIGHT SIDEBAR CONTENT
                 *********************************************************************************************************************************************************** -->
 
-
+                <div class="clearfix hidden-lg"></div>
                 <div class="col-lg-3 ds">
 
                     <!-- Map -->

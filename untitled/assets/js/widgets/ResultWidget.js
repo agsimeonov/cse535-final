@@ -41,7 +41,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
 
     var data = JSON.stringify(this.manager.response);
 
-    $.post('http://localhost:9886',data,function(data){
+    $.post('http://istanbul.cse.buffalo.edu:9886',data,function(data){
         console.log('successfull');
     });
 

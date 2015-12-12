@@ -253,7 +253,7 @@
                               <h4><i class="fa fa-angle-right"></i> Hashtag Co-occurance</h4>
                               <div class="panel-body">
                                   <div id="hero-graph" class="graph"></div>
-                                  <embed class="g-graph" src="http://localhost:9886/graph.html"></embed>
+                                  <embed class="g-graph" src="http://istanbul.cse.buffalo.edu:9886/graph.html"></embed>
                               </div>
                           </div>
                       </div>
@@ -262,7 +262,7 @@
                               <h4><i class="fa fa-angle-right"></i> Language Distribution </h4>
                               <div class="panel-body">
                                   <div id="hero-bar" class="graph"></div>
-                                   <embed class="g-lang" src="http://localhost:9886/lang.html"></embed>
+                                   <embed class="g-lang" src="http://istanbul.cse.buffalo.edu:9886/lang.html"></embed>
                               </div>
                           </div>
                       </div>
@@ -273,7 +273,7 @@
                               <h4><i class="fa fa-angle-right"></i> Trending Topics</h4>
                               <div class="panel-body">
                                   <div id="hero-area" class="graph"></div>
-                                   <embed class="g-trend" src="http://localhost:9886/trending.html"></embed>
+                                   <embed class="g-trend" src="http://istanbul.cse.buffalo.edu:9886/trending.html"></embed>
                               </div>
                           </div>
                       </div>
@@ -282,7 +282,7 @@
                               <h4><i class="fa fa-angle-right"></i> Tweet Demographics</h4>
                               <div class="panel-body">
                                   <div id="hero-donut" class="graph"></div>
-                                   <embed class="g-ctry" src="http://localhost:9886/country.html"></embed>
+                                   <embed class="g-ctry" src="http://istanbul.cse.buffalo.edu:9886/country.html"></embed>
                               </div>
                           </div>
                       </div>

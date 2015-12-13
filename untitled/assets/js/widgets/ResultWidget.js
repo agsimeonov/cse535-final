@@ -48,7 +48,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
     //this.manager.response.grouped.signatureField.groups[0].doclist.docs
     //this.manager.response.response.docs.length
     for (var k=0;k<this.manager.response.grouped.signatureField.groups.length;k++){
-      for (var i = 0, l = this.manager.response.grouped.signatureField.groups[k].doclist.docs.length; i < l; i++) {
+      //for (var i = 0, l = this.manager.response.grouped.signatureField.groups[k].doclist.docs.length; i < l; i++) {
         //var doc = this.manager.response.response.docs[i];
         var doc = this.manager.response.grouped.signatureField.groups[k].doclist.docs[0];
         $(this.target).append(this.template(doc));
@@ -61,7 +61,7 @@ AjaxSolr.ResultWidget = AjaxSolr.AbstractWidget.extend({
         for (var j = 0, m = items.length; j < m; j++) {
           $links.append($('<li></li>').append(items[j]));
         }
-      }
+      //}
     }
   },
 
